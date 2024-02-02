@@ -22,6 +22,9 @@ public class Piece {
      * @param value the value of the piece. (FINAL)
      */
     public Piece(int loc, int value) {
+        if (value < 1 || value > 8) {
+            throw new IllegalArgumentException("The piece value is not valid. Valid Range: 1 <= Value <= 8");
+        }
 
         this.moveTo(loc);
         this.value = value;
@@ -37,7 +40,7 @@ public class Piece {
      */
     public void moveTo(int newLoc) {
         if (newLoc < 0 || newLoc > 8) {
-            throw new IllegalArgumentException("The new location is not valid.");
+            throw new IllegalArgumentException("The new location is not valid. Valid Range: 0 <= Location <= 8.");
         }
         this.loc = newLoc;
     }
