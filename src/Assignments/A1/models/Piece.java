@@ -9,7 +9,7 @@ package Assignments.A1.models;
 public class Piece {
 
     private int loc;
-    private int value;
+    private final int value;
 
     /**
      * Creates a new piece with a specified location and value.
@@ -17,8 +17,9 @@ public class Piece {
      * @precondition loc >= 0 & newLoc <= 8
      *               & value >= 1 & value <= 8
      * @postcondition the piece is created.
-     * @param loc
-     * @param value
+     *
+     * @param loc the location of the piece.
+     * @param value the value of the piece. (FINAL)
      */
     public Piece(int loc, int value) {
 
