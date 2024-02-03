@@ -61,6 +61,21 @@ public class Piece {
     }
 
     /**
+     * Should only be used when creating the board to set its location.
+     *
+     * @precondition location is valid
+     * @postcondition new location set
+     *
+     * @param newLoc the new location
+     */
+    public void setLocation(int newLoc) {
+        if (invalidLocation(newLoc)) {
+            throw new IllegalArgumentException("The location should be valid.");
+        }
+        this.loc = newLoc;
+    }
+
+    /**
      * Gets the location of the piece.
      *
      * @precondition None
@@ -108,6 +123,17 @@ public class Piece {
             return false;
         }
         return board.isTaken(desiredLoc);
+    }
+
+    /**
+     * Turns any string call of the class to just its value.
+     * @precondition none
+     * @postcondition none
+     * @return the value of the piece.
+     */
+    @Override
+    public String toString() {
+        return String.valueOf(this.value);
     }
 
     /* Private Methods Below. End of Java Docs. */

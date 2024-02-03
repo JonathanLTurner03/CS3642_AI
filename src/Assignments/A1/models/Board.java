@@ -1,6 +1,7 @@
 package Assignments.A1.models;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * This class keeps track of the current state (whether in permutation or not) of the board.
@@ -43,6 +44,21 @@ public class Board {
                 this.pieces[index] = new Piece(board.getPiece(index));
             }
         }
+    }
+
+    /**
+     * Constructor used to create a board with a pre-provided piece list.
+     *
+     * @precondition pieces == 9
+     * @postcondition a board is created with given locations
+     *
+     * @param pieces the provided state.
+     */
+    public Board(Piece[] pieces) {
+        if (pieces.length != 9) {
+            throw new IllegalArgumentException("The pieces list must be size 9.");
+        }
+        this.pieces = pieces;
     }
 
 
@@ -195,10 +211,10 @@ public class Board {
         if (this.getClass() != o.getClass()) {
             return false;
         }
-        Board other = (Board) o;
-        for (int i = 0; i < 9; i++) {
-            if (this.pieces[i].getValue() != other.pieces[i].getValue()
-                || this.pieces[i].getLoc() != other.pieces[i].getLoc()) {
+        Piece[] other = ((Board) o).getPiecesInOrder();
+        Piece[] ordered = this.getPiecesInOrder();
+        for (int curr = 0; curr < ordered.length; curr++) {
+            if (ordered[curr] != other[curr]) {
                 return false;
             }
         }
@@ -213,7 +229,11 @@ public class Board {
     public String toString() {
         String result = "";
         for (int i = 0; i < 9; i++) {
-            result += i + " ";
+            if (pieces[i] == null) {
+                result += 0 + " ";
+            } else {
+                result += pieces[i] + " ";
+            }
             if ((i+1) % 3 == 0) {
                 result += "\n";
             }
