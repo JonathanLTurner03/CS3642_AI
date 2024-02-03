@@ -130,8 +130,12 @@ public class Board {
     }
 
     /**
+     * Hashes the board by adding the pieces to an array and hashes the array.
      *
-     * @return
+     * @precondition none
+     * @postcondition none
+     *
+     * @return the hash of the board.
      */
     @Override
     public int hashCode() {
