@@ -107,6 +107,6 @@ public class Piece {
 
     /* Checks if a given location is a valid location. */
     private boolean invalidLocation(int loc) {
-        return (loc >= 0 && loc <= 8);
+        return (loc < 0 || loc > 8);
     }
 }
