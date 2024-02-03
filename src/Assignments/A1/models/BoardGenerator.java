@@ -33,7 +33,7 @@ public class BoardGenerator {
 
         }
 
-        // Checks if the board is solveable.
+        // Checks if the board is solvable.
         Board generated = new Board(pieces);
         if (isSolvable(generated)) {
             return generated;
