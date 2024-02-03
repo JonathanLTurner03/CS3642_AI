@@ -1,4 +1,4 @@
-package Assignments.A1.managers;
+package Assignments.A1.models;
 
 import Assignments.A1.models.Board;
 import Assignments.A1.models.Piece;

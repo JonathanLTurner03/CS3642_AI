@@ -3,7 +3,7 @@ package Assignments.A1;
 // Potentially will be changed to an UI Implementation with JavaFX if time permits.
 
 
-import Assignments.A1.managers.BoardGenerator;
+import Assignments.A1.models.BoardGenerator;
 import Assignments.A1.models.Board;
 import Assignments.A1.models.Piece;
 
