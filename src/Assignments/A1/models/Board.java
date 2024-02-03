@@ -130,6 +130,29 @@ public class Board {
     }
 
     /**
+     * Gets the pieces in order in a single array of size 8.
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @return the ordered list of values.
+     */
+    public Piece[] getPiecesInOrder() {
+        Piece[] ordered = new Piece[8];
+        boolean foundSpace = false;
+        for (Piece curr : this.pieces) {
+            if (curr == null) {
+                foundSpace = true;
+            } else if (!foundSpace) {
+                ordered[curr.getLoc()] = curr;
+            } else {
+                ordered[curr.getLoc()-1] = curr;
+            }
+        }
+        return ordered;
+    }
+
+    /**
      * Hashes the board by adding the pieces to an array and hashes the array.
      *
      * @precondition none
