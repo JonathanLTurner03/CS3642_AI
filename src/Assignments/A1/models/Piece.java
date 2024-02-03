@@ -26,7 +26,7 @@ public class Piece {
             throw new IllegalArgumentException("The piece value is not valid. Valid Range: 1 <= Value <= 8");
         }
 
-        this.moveTo(loc);
+        this.setLoc(loc);
         this.value = value;
     }
 
@@ -39,10 +39,10 @@ public class Piece {
      * @param newLoc the new location of the piece.
      */
     public void moveTo(int newLoc) {
-        if (newLoc < 0 || newLoc > 8) {
-            throw new IllegalArgumentException("The new location is not valid. Valid Range: 0 <= Location <= 8.");
+        if (newLoc == this.loc) {
+            throw new IllegalArgumentException("The new location cannot be the same as the old location.");
         }
-        this.loc = newLoc;
+        this.setLoc(newLoc);
     }
 
     /**
@@ -67,5 +67,46 @@ public class Piece {
      */
     public int getValue() {
         return this.value;
+    }
+
+    /**
+     * Checks if the move to a location is valid.
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @param desiredLoc the location being checked if move is valid.
+     * @param board the current board layout.
+     * @return if the move is valid, True
+     *         else,                 False
+     */
+    public boolean validMove(int desiredLoc, Board board) {
+        if (desiredLoc != this.loc) {
+            return false;
+        }
+        if (this.invalidLocation(desiredLoc)) {
+            return false;
+        }
+        // Checks if the desiredLoc is above, to the left/right, or below.
+        if (desiredLoc != this.loc-3 && desiredLoc != this.loc-1
+                && desiredLoc != this.loc+1 && desiredLoc == this.loc+3) {
+            return false;
+        }
+        return board.isTaken(desiredLoc);
+    }
+
+    /* Private Methods Below. End of Java Docs. */
+
+    /* Sets the location for both Moving and Initialization. */
+    private void setLoc(int loc) {
+        if (this.invalidLocation(loc)) {
+            throw new IllegalArgumentException("The new location is not valid. Valid Range: 0 <= Location <= 8.");
+        }
+        this.loc = loc;
+    }
+
+    /* Checks if a given location is a valid location. */
+    private boolean invalidLocation(int loc) {
+        return (loc >= 0 && loc <= 8);
     }
 }
