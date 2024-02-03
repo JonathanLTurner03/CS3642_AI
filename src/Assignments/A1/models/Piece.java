@@ -25,9 +25,24 @@ public class Piece {
         if (value < 1 || value > 8) {
             throw new IllegalArgumentException("The piece value is not valid. Valid Range: 1 <= Value <= 8");
         }
-
         this.setLoc(loc);
         this.value = value;
+    }
+
+    /**
+     * Creates a new piece from an existing piece.
+     *
+     * @precondition piece != null
+     * @postcondition a copied piece is created.
+     *
+     * @param piece the piece being copied
+     */
+    public Piece(Piece piece) {
+        if (piece == null) {
+            throw new IllegalArgumentException("The piece cannot be null.");
+        }
+        this.loc = piece.getLoc();
+        this.value = piece.getValue();
     }
 
     /**
