@@ -5,7 +5,9 @@ package Assignments.A1.models;
  *
  * @author Jonathan Turner
  * @version CS3642 - Spring 2024
+ * @deprecated to prevent further complexity
  */
+@Deprecated
 public class Piece {
 
     private int loc;

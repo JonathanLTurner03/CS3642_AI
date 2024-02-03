@@ -1,7 +1,6 @@
 package Assignments.A1.models;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * This class keeps track of the current state (whether in permutation or not) of the board.
@@ -11,7 +10,7 @@ import java.util.Random;
  */
 public class Board {
 
-    private Piece[] pieces;
+    private int[] pieces;
 
     /**
      * Default constructor that generates the solved board.
@@ -20,10 +19,16 @@ public class Board {
      * @postcondition a solved board is created.
      */
     public Board() {
-        this.pieces = new Piece[9];
-        for (int index = 1; index < 9; index++) {
-            this.pieces[index-1] = new Piece(index-1, index);
-        }
+        this.pieces = new int[9];
+        this.pieces[0] = 1;
+        this.pieces[1] = 2;
+        this.pieces[2] = 3;
+        this.pieces[3] = 8;
+        this.pieces[5] = 4;
+        this.pieces[6] = 7;
+        this.pieces[7] = 6;
+        this.pieces[8] = 5;
+        this.pieces[4] = 0;
     }
 
     /**
@@ -38,11 +43,9 @@ public class Board {
         if (board == null) {
             throw new IllegalArgumentException("The board must be valid an initialized.");
         }
-        this.pieces = new Piece[9];
+        this.pieces = new int[9];
         for (int index = 0; index < 9; index++) {
-            if (board.getPiece(index) != null) {
-                this.pieces[index] = new Piece(board.getPiece(index));
-            }
+            this.pieces[index] = board.getPiece(index);
         }
     }
 
@@ -54,7 +57,7 @@ public class Board {
      *
      * @param pieces the provided state.
      */
-    public Board(Piece[] pieces) {
+    public Board(int[] pieces) {
         if (pieces.length != 9) {
             throw new IllegalArgumentException("The pieces list must be size 9.");
         }
@@ -70,25 +73,24 @@ public class Board {
      * @param loc the location being checked.
      *
      * @return If the location has a piece, True
-     *         If the location is null,     False
+     *         If the location is 0,        False
      */
     public boolean isTaken(int loc) {
         if (invalidLocation(loc)) {
             throw new IllegalArgumentException("Invalid location specified. Valid Range: 0 <= Location <= 8");
         }
-        return (this.pieces[loc].getValue() != 0);
+        return (this.pieces[loc] != 0);
     }
 
     /**
      * Returns a value in the array of pieces.
      *
+     * @param loc the location of the desired piece.
      * @precondition loc >= 0 & loc <= 8
      * @postcondition none
-     * @param loc the location of the desired piece.
-     *
-     * @return the array of pieces.
+     * @return the pieces at that location.
      */
-    public Piece getPiece(int loc) {
+    public int getPiece(int loc) {
         if (invalidLocation(loc)) {
             throw new IllegalArgumentException("Invalid location specified. Valid Range: 0 <= Location <= 8");
         }
@@ -105,7 +107,7 @@ public class Board {
      */
     public int getOpenLocation() {
         for (int index = 0; index < 9; index++) {
-            if (this.pieces[index] == null) {
+            if (this.pieces[index] == 0) {
                 return index;
             }
         }
@@ -113,36 +115,19 @@ public class Board {
     }
 
     /**
-     * Takes two values on the board and swaps them if possible.
+     * Takes two values on the board and swaps them.
      *
-     * @precondition board.get(first).validMove(second) == true
-     *            || board.get(second).validMove(first) == true
+     * @precondition none
      * @postcondition the values are swapped
      *
      * @param first the first index of the values being swapped
      * @param second the second index of the values being swapped
      * @return if the values were swapped or not.
      */
-    public boolean swap(int first, int second) {
-        // Checks if the first piece is empty and the second is not.
-        if (this.pieces[first] == null && this.pieces[second] != null) {
-            // Checks if the moves are valid
-            if (this.pieces[second].validMove(first, this)) {
-                // Swaps the values
-                this.pieces[first] = this.pieces[second];
-                this.pieces[second] = null;
-                return true; // Successful Swap
-            }
-        } else if (this.pieces[second] == null && this.pieces[first] != null) { // Checks the inverse.
-            // Checks if the moves are valid
-            if (this.pieces[first].validMove(second, this)) {
-                // Swaps the values
-                this.pieces[second] = this.pieces[first];
-                this.pieces[first] = null;
-                return true; // Successful Swap
-            }
-        }
-        return false;
+    public void swap(int first, int second) {
+        int temp = this.pieces[first];
+        this.pieces[first] = this.pieces[second];
+        this.pieces[second] = temp;
     }
 
     /**
@@ -153,17 +138,14 @@ public class Board {
      *
      * @return the ordered list of values.
      */
-    public Piece[] getPiecesInOrder() {
-        Piece[] ordered = new Piece[8];
-        boolean foundSpace = false;
-        for (Piece curr : this.pieces) {
-            if (curr == null) {
-                foundSpace = true;
-            } else if (!foundSpace) {
-                ordered[curr.getLoc()] = curr;
-            } else {
-                ordered[curr.getLoc()-1] = curr;
+    public int[] getPieces() {
+        int[] ordered = new int[8];
+        int iterations = 0;
+        for (int curr : this.pieces) {
+            if (curr == 0) {
+                continue;
             }
+            ordered[iterations] = curr;
         }
         return ordered;
     }
@@ -179,15 +161,9 @@ public class Board {
     @Override
     public int hashCode() {
         int[] hashValues = new int[9];
-
         for (int i = 0; i < 9; i++) {
-            if (this.pieces[i] != null) {
-                hashValues[i] = this.pieces[i].getValue();
-            } else {
-                hashValues[i] = 0;
-            }
+            hashValues[i] = this.pieces[i];
         }
-
         return Arrays.hashCode(hashValues);
     }
 
@@ -211,10 +187,9 @@ public class Board {
         if (this.getClass() != o.getClass()) {
             return false;
         }
-        Piece[] other = ((Board) o).getPiecesInOrder();
-        Piece[] ordered = this.getPiecesInOrder();
-        for (int curr = 0; curr < ordered.length; curr++) {
-            if (ordered[curr] != other[curr]) {
+        Board other = (Board) o;
+        for (int curr : this.pieces) {
+            if (curr != other.pieces[curr]) {
                 return false;
             }
         }
@@ -229,11 +204,7 @@ public class Board {
     public String toString() {
         String result = "";
         for (int i = 0; i < 9; i++) {
-            if (pieces[i] == null) {
-                result += 0 + " ";
-            } else {
-                result += pieces[i] + " ";
-            }
+            result += pieces[i] + " ";
             if ((i+1) % 3 == 0) {
                 result += "\n";
             }

@@ -1,8 +1,5 @@
 package Assignments.A1.models;
 
-import Assignments.A1.models.Board;
-import Assignments.A1.models.Piece;
-
 import java.util.*;
 
 /**
@@ -23,19 +20,17 @@ public class BoardGenerator {
      */
     public static Board generateBoard() {
 
+        // Creates the initial board with default values.
         Integer[] values = {1, 2, 3, 4, 5, 6, 7, 8};
         List<Integer> random = new ArrayList<>(Arrays.asList(values));
         Collections.shuffle(random);
 
         Random gen = new Random();
         int spaceLoc = gen.nextInt(9);
-        Piece[] pieces = new Piece[9];
+        int[] pieces = new int[9];
         for (int curr = 0; curr < values.length; curr++) {
-            if (curr < spaceLoc) {
-                pieces[curr] = new Piece(curr,random.get(curr));
-            } else {
-                pieces[curr+1] = new Piece(curr+1,random.get(curr));
-            }
+            pieces[curr] = random.get(curr);
+
         }
 
         // Checks if the board is solveable.
@@ -44,14 +39,11 @@ public class BoardGenerator {
             return generated;
         } else { // If not it swaps the last two values (ignoring the space)
             if (spaceLoc == 8) {
-                pieces[7].setLocation(6);
-                pieces[6].setLocation(7);
+                generated.swap(6,7);
             } else if (spaceLoc == 7) {
-                pieces[8].setLocation(6);
-                pieces[6].setLocation(8);
+                generated.swap(6,8);
             } else {
-                pieces[7].setLocation(6);
-                pieces[6].setLocation(7);
+                generated.swap(7,8);
             }
             generated = new Board(pieces);
         }
@@ -78,17 +70,17 @@ public class BoardGenerator {
 
         // Holds the number of inversions
         int inversions = 0;
-        Piece[] ordered = board.getPiecesInOrder();
+        int[] ordered = board.getPieces();
 
         // Counts the number of inversions
         for (int index = 0; index < 8; index++) {
             for (int invers = index+1; invers < 8; invers++) {
-                if (ordered[index].getValue() > ordered[invers].getValue()) {
+                if (ordered[index] > ordered[invers]) {
                     inversions++;
                 }
             }
         }
-        return (inversions % 2 == 0);
+        return (inversions % 2 == 1);
     }
 
 
