@@ -122,7 +122,6 @@ public class Board {
      *
      * @param first the first index of the values being swapped
      * @param second the second index of the values being swapped
-     * @return if the values were swapped or not.
      */
     public void swap(int first, int second) {
         int temp = this.pieces[first];
