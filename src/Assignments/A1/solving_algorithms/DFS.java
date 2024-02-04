@@ -12,8 +12,7 @@ public class DFS {
     private HashSet<Board> visited = new HashSet<>();
     private HashMap<Board, Stack<Move>> moves = new HashMap<>();
 
-    public void dfs(Board currentState) {
-
+    public void dfs(Board root) {
 
 
     }

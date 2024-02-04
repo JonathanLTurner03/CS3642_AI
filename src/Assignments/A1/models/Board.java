@@ -1,6 +1,8 @@
 package Assignments.A1.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class keeps track of the current state (whether in permutation or not) of the board.
@@ -147,6 +149,34 @@ public class Board {
             ordered[iterations] = curr;
         }
         return ordered;
+    }
+
+    /**
+     * Adds all the possible moves the state can make based off the open space.
+     *
+     * @precondition none
+     * @postcondition none
+     * @return the list of possible moves.
+     */
+    public List<Move> getMoves() {
+        List<Move> moves = new ArrayList<>();
+        int space = getOpenLocation();
+        int row = space / 3;
+        int column = space % 3;
+
+        if (row > 0) {
+            moves.add(new Move(space, space-1));
+        }
+        if (row < 2) {
+            moves.add(new Move(space, space+1));
+        }
+        if (column > 0) {
+            moves.add(new Move(space, space-3));
+        }
+        if (column < 2) {
+            moves.add(new Move(space, space+3));
+        }
+        return moves;
     }
 
     /**
