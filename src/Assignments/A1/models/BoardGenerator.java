@@ -70,17 +70,17 @@ public class BoardGenerator {
 
         // Holds the number of inversions
         int inversions = 0;
-        int[] ordered = board.getPieces();
+        int[] ordered = board.pieces;
 
         // Counts the number of inversions
-        for (int index = 0; index < 8; index++) {
-            for (int invers = index+1; invers < 8; invers++) {
+        for (int index = 0; index < 9; index++) {
+            for (int invers = index+1; invers < 9; invers++) {
                 if (ordered[index] > ordered[invers]) {
                     inversions++;
                 }
             }
         }
-        return (inversions % 2 == 1);
+        return (inversions % 2 == 0);
     }
 
 

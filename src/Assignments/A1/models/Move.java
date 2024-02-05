@@ -19,9 +19,11 @@ public class Move {
      * @postcondition a new move is created.
      * @param firstpoint the first point
      * @param secondpoint the second point
+     * @param root the board attached to the move.
      */
-    public Move(int firstpoint, int secondpoint) {
+    public Move(int firstpoint, int secondpoint, Board root) {
         this.points = new Pair<>(firstpoint, secondpoint);
+        this.board = new Board(root);
     }
 
     /**
@@ -44,6 +46,29 @@ public class Move {
     public Pair<Integer> traverse() {
         used = true;
         return points;
+    }
+
+    /**
+     * Returns the board for the move.
+     *
+     * @precondition none
+     * @postcondition none
+     * @return the board.
+     */
+    public Board getBoard() {
+        return this.board;
+    }
+
+    /**
+     * Same as root
+     */
+    public boolean isRoot() {
+        Board temp = new Board(this.board);
+        temp.swap(this.points.first, this.points.second);
+        if (temp.equals(this.board)) {
+            return true;
+        }
+        return false;
     }
 }
 

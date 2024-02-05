@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Board {
 
-    private int[] pieces;
+    public int[] pieces;
 
     /**
      * Default constructor that generates the solved board.
@@ -108,12 +108,17 @@ public class Board {
      * @return the location of the empty piece.
      */
     public int getOpenLocation() {
+        int loc = -1;
         for (int index = 0; index < 9; index++) {
             if (this.pieces[index] == 0) {
-                return index;
+                loc = index;
             }
         }
-        throw new IllegalStateException("The state of the board must have 1 empty space.");
+        if (loc != -1) {
+            return loc;
+        } else {
+            throw new IllegalStateException("The state of the board must have 1 empty space.");
+        }
     }
 
     /**
@@ -129,6 +134,13 @@ public class Board {
         int temp = this.pieces[first];
         this.pieces[first] = this.pieces[second];
         this.pieces[second] = temp;
+    }
+
+    public void swap(Move move) {
+        Pair<Integer> points = move.traverse();
+        int temp = this.pieces[points.first];
+        this.pieces[points.first] = this.pieces[points.second];
+        this.pieces[points.second] = temp;
     }
 
     /**
@@ -164,17 +176,17 @@ public class Board {
         int row = space / 3;
         int column = space % 3;
 
-        if (row > 0) {
-            moves.add(new Move(space, space-1));
-        }
-        if (row < 2) {
-            moves.add(new Move(space, space+1));
-        }
         if (column > 0) {
-            moves.add(new Move(space, space-3));
+            moves.add(new Move(space, space-1, this));
         }
         if (column < 2) {
-            moves.add(new Move(space, space+3));
+            moves.add(new Move(space, space+1, this));
+        }
+        if (row > 0) {
+            moves.add(new Move(space, space-3, this));
+        }
+        if (row < 2) {
+            moves.add(new Move(space, space+3, this));
         }
         return moves;
     }
@@ -217,26 +229,29 @@ public class Board {
             return false;
         }
         Board other = (Board) o;
-        for (int curr : this.pieces) {
-            if (curr != other.pieces[curr]) {
-                return false;
-            }
-        }
-        return true;
+        return (other.toString().equals(this.toString()));
     }
 
     /**
      * Specifies a way of printing out the board with its current state.
      * @return the current state formatted.
      */
+//    @Override
+//    public String toString() {
+//        String result = "";
+//        for (int i = 0; i < 9; i++) {
+//            result += pieces[i] + " ";
+//            if ((i+1) % 3 == 0) {
+//                result += "\n";
+//            }
+//        }
+//        return result;
+//    }
     @Override
     public String toString() {
         String result = "";
         for (int i = 0; i < 9; i++) {
             result += pieces[i] + " ";
-            if ((i+1) % 3 == 0) {
-                result += "\n";
-            }
         }
         return result;
     }
