@@ -25,18 +25,15 @@ public class Driver {
 
     public static void main(String[] args) {
         DFS solver = new DFS();
-//        Board board = new Board();
-//        Board result = solver.dfs(board, 0);
-//        System.out.println(result);
-//        Board board = BoardGenerator.generateBoard();
-//
-//        Board result = solver.dfs(board, 0, new ArrayList<String>());
-//        System.out.println(result);
-//
-        int[] temp = {0,8,3,5,1,6,4,7,2};
-        Board solvable = new Board(temp);
-        Board result = solver.dfs(solvable,0, new ArrayList<>());
-        System.out.println(result);
+        Board board = BoardGenerator.generateBoard();
+        Board result = solver.dfs(board, 0, new ArrayList<>());
+        int count = 0;
+        while (count != 100 || result != null) {
+            result = solver.dfs(board, 0, new ArrayList<>());
+            System.out.println(count);
+            count++;
+            board = BoardGenerator.generateBoard();
+        }
     }
 
 }

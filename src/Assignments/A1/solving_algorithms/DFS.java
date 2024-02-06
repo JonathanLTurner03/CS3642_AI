@@ -17,7 +17,6 @@ public class DFS {
 
     public Board dfs(Board root, int depth, ArrayList<String> visited) {
         counter++;
-        System.out.println("Num of boards " + counter + " | Depth " + depth);
         if (root.equals(solved)) {
             return root;
         }

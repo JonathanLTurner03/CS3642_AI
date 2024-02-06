@@ -9,6 +9,6 @@ package Assignments.A1.resources;
 public class Parameters {
 
     /* Used to prevent DFS from going down only 1 branch */
-    public static final int MAX_DEPTH = 31; // Max number of moves in 8-Puzzle's are 31 moves if solvable.
+    public static final int MAX_DEPTH = 100; // Max number of moves in 8-Puzzle's are 31 moves if solvable.
 
 }
