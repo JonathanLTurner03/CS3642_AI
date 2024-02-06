@@ -43,4 +43,68 @@ public class DFS {
         return null;
     }
 
+    public boolean traverse(Board root) {
+        BoardNode current = new BoardNode(root);
+        Stack<BoardNode> lvr = new Stack<>();
+        lvr.push(current);
+        while (!lvr.isEmpty()) {
+            BoardNode curr = lvr.pop();
+            if (curr.board.equals(solved)) {
+                return true;
+            }
+            List<Move> moves = curr.board.getMoves();
+            for (Move move : moves) {
+                Board child = new Board(curr.board);
+                child.swap(move);
+                if (!curr.hasAncestor(child)) {
+                    BoardNode childNode = new BoardNode(child, curr);
+                    curr.addChild(childNode);
+                    lvr.add(childNode);
+                }
+            }
+        }
+        return false;
+
+    }
+
+
+
+
+}
+
+class BoardNode {
+
+    public Board board;
+    public BoardNode parent;
+    public List<BoardNode> children;
+
+    public BoardNode(Board child, BoardNode parent) {
+        this.board = child;
+        this.parent = parent;
+        this.children = new ArrayList<>();
+    }
+
+    public BoardNode (Board child) {
+        this.board = child;
+        this.parent = null;
+        this.children = new ArrayList<>();
+    }
+
+    public boolean hasAncestor(Board board) {
+        BoardNode current = this;
+        while (current.parent != null) {
+            current = current.parent;
+            if (current.board.equals(board)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addChild(BoardNode child) {
+        if (child != null) {
+            children.add(child);
+        }
+    }
+
 }

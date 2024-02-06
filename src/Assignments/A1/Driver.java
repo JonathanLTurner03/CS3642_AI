@@ -26,10 +26,10 @@ public class Driver {
     public static void main(String[] args) {
         DFS solver = new DFS();
         Board board = BoardGenerator.generateBoard();
-        Board result = solver.dfs(board, 0, new ArrayList<>());
+        boolean result = solver.traverse(board);
         int count = 0;
-        while (count != 100 || result != null) {
-            result = solver.dfs(board, 0, new ArrayList<>());
+        while (count != 100 || !result) {
+            result = solver.traverse(board);
             System.out.println(count);
             count++;
             board = BoardGenerator.generateBoard();
