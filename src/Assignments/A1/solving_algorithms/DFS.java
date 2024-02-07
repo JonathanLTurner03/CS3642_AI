@@ -15,33 +15,34 @@ public class DFS {
     private final Board solved = new Board();
     private List<String> tried = new ArrayList<>();
 
-    public Board dfs(Board root, int depth, ArrayList<String> visited) {
-        counter++;
-        if (root.equals(solved)) {
-            return root;
-        }
-
-        ArrayList<String> directParents = new ArrayList<>(visited);
-        if (depth == Parameters.MAX_DEPTH || visited.contains(root.toString()) || tried.contains(root.toString())) {
-            return null;
-        }
-        directParents.add(root.toString());
-        tried.add(root.toString());
-
-        List<Move> moves = root.getMoves();
-        int moveNum = 1;
-        for (Move next : moves) {
-
-            Board child = next.getBoard();
-            child.swap(next);
-            moveNum++;
-            Board board = dfs(child, depth+1, directParents);
-            if (board != null) {
-                return board;
-            }
-        }
-        return null;
-    }
+    /* Commented out for future reference. */
+//    public Board dfs(Board root, int depth, ArrayList<String> visited) {
+//        counter++;
+//        if (root.equals(solved)) {
+//            return root;
+//        }
+//
+//        ArrayList<String> directParents = new ArrayList<>(visited);
+//        if (depth == Parameters.MAX_DEPTH || visited.contains(root.toString()) || tried.contains(root.toString())) {
+//            return null;
+//        }
+//        directParents.add(root.toString());
+//        tried.add(root.toString());
+//
+//        List<Move> moves = root.getMoves();
+//        int moveNum = 1;
+//        for (Move next : moves) {
+//
+//            Board child = next.getBoard();
+//            child.swap(next);
+//            moveNum++;
+//            Board board = dfs(child, depth+1, directParents);
+//            if (board != null) {
+//                return board;
+//            }
+//        }
+//        return null;
+//    }
 
     public Board dfs(Board root, int depth) {
         counter++;
