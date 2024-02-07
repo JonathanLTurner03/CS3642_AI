@@ -43,68 +43,29 @@ public class DFS {
         return null;
     }
 
-    public boolean traverse(Board root) {
-        BoardNode current = new BoardNode(root);
-        Stack<BoardNode> lvr = new Stack<>();
-        lvr.push(current);
-        while (!lvr.isEmpty()) {
-            BoardNode curr = lvr.pop();
-            if (curr.board.equals(solved)) {
-                return true;
+    public Board dfs(Board root, int depth) {
+        counter++;
+        Stack<Board> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            Board current = stack.pop();
+            if (current.equals(solved)) {
+                return current;
             }
-            List<Move> moves = curr.board.getMoves();
-            for (Move move : moves) {
-                Board child = new Board(curr.board);
-                child.swap(move);
-                if (!curr.hasAncestor(child)) {
-                    BoardNode childNode = new BoardNode(child, curr);
-                    curr.addChild(childNode);
-                    lvr.add(childNode);
-                }
+
+            if (depth == Parameters.MAX_DEPTH || tried.contains(current.toString())) {
+                continue;
             }
-        }
-        return false;
+            tried.add(current.toString());
 
-    }
-
-
-
-
-}
-
-class BoardNode {
-
-    public Board board;
-    public BoardNode parent;
-    public List<BoardNode> children;
-
-    public BoardNode(Board child, BoardNode parent) {
-        this.board = child;
-        this.parent = parent;
-        this.children = new ArrayList<>();
-    }
-
-    public BoardNode (Board child) {
-        this.board = child;
-        this.parent = null;
-        this.children = new ArrayList<>();
-    }
-
-    public boolean hasAncestor(Board board) {
-        BoardNode current = this;
-        while (current.parent != null) {
-            current = current.parent;
-            if (current.board.equals(board)) {
-                return true;
+            List<Move> moves = current.getMoves();
+            for (Move next : moves) {
+                Board child = next.getBoard();
+                child.swap(next);
+                stack.push(child);
             }
         }
-        return false;
+        return null;
     }
-
-    public void addChild(BoardNode child) {
-        if (child != null) {
-            children.add(child);
-        }
-    }
-
 }

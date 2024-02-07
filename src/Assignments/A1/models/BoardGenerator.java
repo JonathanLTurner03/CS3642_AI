@@ -21,12 +21,14 @@ public class BoardGenerator {
     public static Board generateBoard() {
         Board ideal = new Board();
         Random random = new Random();
-        int numOfMoves = random.nextInt(30,50);
-        for (int i = 0; i < numOfMoves; i++) {
-            List<Move> moves = ideal.getMoves();
-            Move randomMove = moves.get(random.nextInt(moves.size()));
-            ideal.swap(randomMove);
-        }
+        do {
+            int numOfMoves = random.nextInt(100, 150);
+            for (int i = 0; i < numOfMoves; i++) {
+                List<Move> moves = ideal.getMoves();
+                Move randomMove = moves.get(random.nextInt(moves.size()));
+                ideal.swap(randomMove);
+            }
+        } while (ideal.equals(new Board()));
         return ideal;
     }
 }
