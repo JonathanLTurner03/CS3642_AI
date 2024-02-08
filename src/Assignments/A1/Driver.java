@@ -4,6 +4,7 @@ package Assignments.A1;
 
 import Assignments.A1.models.Board;
 import Assignments.A1.models.BoardGenerator;
+import Assignments.A1.solving_algorithms.BFS;
 import Assignments.A1.solving_algorithms.DFS;
 
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ public class Driver {
         int successes = 0;
         for (int run = 0; run < 100; run++) {
             Board board = BoardGenerator.generateBoard();
-            DFS solver = new DFS();
+//            DFS solver = new DFS();
+            BFS solver = new BFS();
             Date start = new Date();
-            Board result = solver.dfs(board,0);
+            Board result = solver.traverse(board);
             Date end = new Date();
             if (result != null) {
-                System.out.println("solved");
                 long runtime = end.getTime() - start.getTime();
                 timer.add(runtime);
                 successes++;
