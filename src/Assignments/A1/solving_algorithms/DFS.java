@@ -11,9 +11,8 @@ import java.util.*;
 
 public class DFS {
 
-    private int counter = 0;
     private final Board solved = new Board();
-    private List<String> tried = new ArrayList<>();
+    private final List<String> tried = new ArrayList<>();
 
     /* Commented out for future reference. */
 //    public Board dfs(Board root, int depth, ArrayList<String> visited) {
@@ -44,8 +43,7 @@ public class DFS {
 //        return null;
 //    }
 
-    public Board dfs(Board root, int depth) {
-        counter++;
+    public Board traverse(Board root, int depth) {
         Stack<Board> stack = new Stack<>();
         stack.push(root);
 
