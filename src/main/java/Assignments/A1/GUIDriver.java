@@ -13,9 +13,9 @@ public class GUIDriver extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/A1/view/BoardView.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("A1/view/styles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/A1/view/styles.css").toExternalForm());
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Jonathan Turner - CS3642 - Assignment 1");
         stage.setScene(scene);
         stage.show();
     }
