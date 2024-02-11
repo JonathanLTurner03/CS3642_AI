@@ -14,7 +14,7 @@ public class AStar {
     private final HashSet<Board> visited = new HashSet<>();
 
     public BoardNode traverse(Board root) {
-        PriorityQueue<BoardNode> boards = new PriorityQueue<>(new UCSPriority());
+        PriorityQueue<BoardNode> boards = new PriorityQueue<>(new AStarPriority());
         boards.add(new BoardNode(root, null));
         BoardNode node = null;
         Board current = new Board(root);
@@ -29,7 +29,9 @@ public class AStar {
             for (Move move : children) {
                 Board child = new Board(node.board);
                 child.swap(move);
-                boards.add(new BoardNode(child, node));
+                BoardNode childNode = new BoardNode(child, node);
+                boards.add(childNode);
+                node.addChild(childNode);
             }
         }
         return node;
@@ -39,6 +41,6 @@ public class AStar {
 class AStarPriority implements Comparator<BoardNode> {
     @Override
     public int compare(BoardNode o1, BoardNode o2) {
-        return Integer.compare(o2.cost, o1.cost);
+        return Integer.compare(o1.expected, o2.expected);
     }
 }

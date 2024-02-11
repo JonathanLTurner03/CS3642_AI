@@ -29,7 +29,9 @@ public class UCS {
             for (Move move : children) {
                 Board child = new Board(node.board);
                 child.swap(move);
-                boards.add(new BoardNode(child, node));
+                BoardNode childNode = new BoardNode(child, node);
+                boards.add(childNode);
+                node.addChild(childNode);
             }
         }
         return node;

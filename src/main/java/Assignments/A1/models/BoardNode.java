@@ -6,8 +6,7 @@ import java.util.List;
 public class BoardNode implements Comparable<BoardNode> {
 
     public BoardNode parent;
-    public int heuristic;
-    public int cost;
+    public int heuristic, cost, expected;
     public Board board;
     public List<BoardNode> children;
 
@@ -16,12 +15,13 @@ public class BoardNode implements Comparable<BoardNode> {
         this.parent = parent;
         this.heuristic = this.getHeuristic();
         this.cost = this.getActualCost();
+        this.expected = this.cost + this.expected;
         this.children = new ArrayList<>();
     }
 
     private int getActualCost() {
         if (this.parent != null) {
-            return this.parent.cost + 1;
+            return this.parent.cost + 10;
         } else {
             return 0;
         }
