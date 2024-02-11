@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.PriorityQueue;
@@ -122,32 +124,17 @@ public class Driver {
     }
 
     private static void writeToFile(String name, StringBuffer values) {
-        File directory = new File("src/Assignments/A1/results");
-        if (!directory.exists()) {
-            directory.mkdirs();
-            System.out.println("Creating Directory: results");
-        }
+        URL resourcePath = Driver.class.getResource("/A1/results/AStar.txt");
+        URI resourceURI = URI.create(resourcePath.toString());
+        File resource = new File(resourceURI.getPath());
 
-        File output = new File(directory, name + ".txt");
-
-        try {
-            if (!output.createNewFile()) {
-                System.out.println("File Already Exists: " + name + ".txt");
-            } else {
-                System.out.println("File Created: " + name + ".txt");
-            }
-        } catch (IOException e) {
-            System.err.println("Error creating file: " + e.getMessage());
-        }
-
-        try (FileWriter out = new FileWriter(output)) {
+        try (FileWriter out = new FileWriter(resource)) {
             out.write(values.toString());
             System.out.println("Data written to file: " + name + ".txt");
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
-
-        openDirectoryFile(output);
+        openDirectoryFile(resource);
     }
 
     private static void openDirectoryFile(File open) {
