@@ -1,4 +1,4 @@
-package Assignments.A1.models;
+package Assignments.A1.models.helper;
 
 /**
  * Used to pair two points for moves.

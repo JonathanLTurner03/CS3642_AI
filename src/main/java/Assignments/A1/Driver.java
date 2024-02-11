@@ -5,20 +5,17 @@ package Assignments.A1;
 import Assignments.A1.models.Board;
 import Assignments.A1.models.BoardGenerator;
 import Assignments.A1.models.BoardNode;
-import Assignments.A1.solving_algorithms.AStar;
-import Assignments.A1.solving_algorithms.BFS;
-import Assignments.A1.solving_algorithms.UCS;
+import Assignments.A1.solving_algorithms.DFS;
+import Assignments.A1.solving_algorithms.comparators.AStar;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.PriorityQueue;
 
 /**
  * Board will be used to save locations in a 2D array.
@@ -44,10 +41,10 @@ public class Driver {
         BoardNode node = null;
         for (int run = 0; run < runs; run++) {
             Board board = BoardGenerator.generateBoard();
-//            DFS solver = new DFS();
+            DFS solver = new DFS();
 //            BFS solver = new BFS();
 //            UCS solver = new UCS();
-            AStar solver = new AStar();
+//            AStar solver = new AStar();
             Date start = new Date();
             BoardNode result = solver.traverse(board);
             Date end = new Date();
@@ -125,7 +122,7 @@ public class Driver {
     }
 
     private static void writeToFile(String name, StringBuffer values) {
-        URL resourcePath = Driver.class.getResource("/A1/results/AStar.txt");
+        URL resourcePath = Driver.class.getResource("/A1/results/" + name + ".txt");
         URI resourceURI = URI.create(resourcePath.toString());
         File resource = new File(resourceURI.getPath());
 

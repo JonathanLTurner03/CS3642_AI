@@ -36,7 +36,6 @@ public class BoardNode implements Comparable<BoardNode> {
         children.add(node);
     }
 
-
     private int getHeuristic() {
         int cost = 0;
         for (int i = 0; i < 9; i++) {

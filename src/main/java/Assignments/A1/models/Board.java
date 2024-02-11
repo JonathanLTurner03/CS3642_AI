@@ -1,5 +1,8 @@
 package Assignments.A1.models;
 
+import Assignments.A1.models.helper.Move;
+import Assignments.A1.models.helper.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -236,17 +239,6 @@ public class Board {
      * Specifies a way of printing out the board with its current state.
      * @return the current state formatted.
      */
-//    @Override
-//    public String toString() {
-//        String result = "";
-//        for (int i = 0; i < 9; i++) {
-//            result += pieces[i] + " ";
-//            if ((i+1) % 3 == 0) {
-//                result += "\n";
-//            }
-//        }
-//        return result;
-//    }
     @Override
     public String toString() {
         String result = pieces[0] + " " + pieces[1] + " " + pieces[2] + "\n"

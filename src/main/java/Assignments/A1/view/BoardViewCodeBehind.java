@@ -1,5 +1,6 @@
 package Assignments.A1.view;
 
+import Assignments.A1.models.Board;
 import Assignments.A1.models.BoardNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,6 +71,8 @@ public class BoardViewCodeBehind {
         this.expanded.selectedProperty().bindBidirectional(viewModel.expandedProperty());
         this.alg_speed.textProperty().bindBidirectional(viewModel.algSpeedProperty());
         this.disclaimer.visibleProperty().bindBidirectional(viewModel.disclaimerProperty());
+
+        this.current_board.textProperty().setValue(new Board().toString());
     }
 
     public void onGenerateBoard(ActionEvent actionEvent) {
@@ -86,6 +89,7 @@ public class BoardViewCodeBehind {
     public void onSolveButton(ActionEvent actionEvent) {
         viewModel.solveBoard();
         viewModel.updateDisplay();
+        this.spanning_tree.setRoot(new TreeItem<>());
         this.spanning_tree.setRoot(viewModel.getSolvedRootNode());
     }
 

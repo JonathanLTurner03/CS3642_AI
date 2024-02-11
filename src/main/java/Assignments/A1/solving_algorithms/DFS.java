@@ -1,6 +1,8 @@
 package Assignments.A1.solving_algorithms;
 
 import Assignments.A1.models.*;
+import Assignments.A1.models.helper.Move;
+import Assignments.A1.models.helper.Solver;
 import Assignments.A1.resources.Parameters;
 
 import java.util.*;
@@ -15,7 +17,6 @@ public class DFS implements Solver {
         BoardNode rootNode = new BoardNode(root, null);
         rootNode.setDepth(0);
         stack.push(rootNode);
-
 
         while (!stack.isEmpty()) {
             BoardNode current = stack.pop();

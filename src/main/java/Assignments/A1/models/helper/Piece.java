@@ -1,4 +1,6 @@
-package Assignments.A1.models;
+package Assignments.A1.models.helper;
+
+import Assignments.A1.models.Board;
 
 /**
  * This class allows for abstraction and proper representation of a piece of the 8 puzzle.

@@ -3,11 +3,12 @@ package Assignments.A1.view;
 import Assignments.A1.models.Board;
 import Assignments.A1.models.BoardGenerator;
 import Assignments.A1.models.BoardNode;
-import Assignments.A1.models.Solver;
-import Assignments.A1.solving_algorithms.AStar;
-import Assignments.A1.solving_algorithms.BFS;
+import Assignments.A1.models.helper.Solver;
+import Assignments.A1.solving_algorithms.PriorityTraversal;
+import Assignments.A1.solving_algorithms.comparators.AStar;
+import Assignments.A1.solving_algorithms.comparators.BFS;
 import Assignments.A1.solving_algorithms.DFS;
-import Assignments.A1.solving_algorithms.UCS;
+import Assignments.A1.solving_algorithms.comparators.UCS;
 import javafx.beans.property.*;
 import javafx.scene.control.TreeItem;
 
@@ -79,11 +80,11 @@ public class MainViewModel {
         if (DFS.getValue()) {
             solver = new DFS();
         } else if (UCS.getValue()) {
-            solver = new UCS();
+            solver = new PriorityTraversal(new UCS());
         } else if (BFS.getValue()) {
-            solver = new BFS();
+            solver = new PriorityTraversal(new BFS());
         } else if (AStar.getValue()) {
-            solver = new AStar();
+            solver = new PriorityTraversal(new AStar());
         }
         Date start = new Date();
         BoardNode solved = solver.traverse(this.current.board);
@@ -136,32 +137,35 @@ public class MainViewModel {
     }
 
     private TreeItem<BoardNode> rebuildTree(BoardNode root, boolean expanded) {
-        if (this.selectedAlg.equals("DFS")) {
-            Stack<BoardNode> generations = new Stack<>();
-            BoardNode temp = this.current;
-            while (temp != null) {
-                generations.push(temp);
-                temp = temp.parent;
-            }
-            TreeItem<BoardNode> rootItem = new TreeItem<>(root);
-            TreeItem<BoardNode> currItem = rootItem;
-            while (!generations.isEmpty()) {
-                TreeItem<BoardNode> child = new TreeItem<>(generations.pop());
-                currItem.getChildren().add(child);
-                currItem.setExpanded(expanded);
-                currItem = child;
-            }
-            return rootItem;
-        } else {
-            TreeItem<BoardNode> treeItem = new TreeItem<>(root);
-            for (BoardNode child : root.children) {
-                TreeItem<BoardNode> childItem = rebuildTree(child, expanded);
-                treeItem.getChildren().add(childItem);
-            }
-            treeItem.setExpanded(expanded);
+        if (this.selectedAlg != null) {
+            if (this.selectedAlg.equals("DFS")) {
+                Stack<BoardNode> generations = new Stack<>();
+                BoardNode temp = this.current;
+                while (temp != null) {
+                    generations.push(temp);
+                    temp = temp.parent;
+                }
+                TreeItem<BoardNode> rootItem = new TreeItem<>(root);
+                TreeItem<BoardNode> currItem = rootItem;
+                while (!generations.isEmpty()) {
+                    TreeItem<BoardNode> child = new TreeItem<>(generations.pop());
+                    currItem.getChildren().add(child);
+                    currItem.setExpanded(expanded);
+                    currItem = child;
+                }
+                return rootItem;
+            } else {
+                TreeItem<BoardNode> treeItem = new TreeItem<>(root);
+                for (BoardNode child : root.children) {
+                    TreeItem<BoardNode> childItem = rebuildTree(child, expanded);
+                    treeItem.getChildren().add(childItem);
+                }
+                treeItem.setExpanded(expanded);
 
-            return treeItem;
+                return treeItem;
+            }
         }
+        return new TreeItem<>();
     }
 
 
