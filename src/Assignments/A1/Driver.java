@@ -11,6 +11,7 @@ import Assignments.A1.solving_algorithms.UCS;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,21 +41,12 @@ public class Driver {
             BFS solver = new BFS();
 //            UCS solver = new UCS();
             Date start = new Date();
-            Board result = solver.traverse(board);
+            BoardNode result = solver.traverse(board);
             Date end = new Date();
-            if (result != null) {
+            if (result.board != null) {
                 long runtime = end.getTime() - start.getTime();
                 timer.add(runtime);
                 successes++;
-                String test = "END";
-                System.out.println(solver.test.heuristic);
-                BoardNode curr = solver.test;
-                while (curr != null) {
-                    test = curr.board.toString() + " -> " + test;
-                    curr = curr.parent;
-                }
-                System.out.println(test);
-                System.out.println();
             }
         }
         long total = 0;
@@ -65,6 +57,24 @@ public class Driver {
         long average = total / (long) timer.size();
         System.out.println("Average Runtime: " + average);
         System.out.println("Number of successful solves: " + successes + "/" + runs);
+
+        StringBuffer buffer = new StringBuffer();
+
+    }
+
+
+    private void print(StringBuilder buffer, BoardNode root) {
+        buffer.append(root.board.toString());
+        buffer.append("BFS");
+        buffer.append('\n');
+        for (Iterator<BoardNode> it = root.children.iterator(); it.hasNext();) {
+            BoardNode next = it.next();
+            if (it.hasNext()) {
+                buffer.append("├──").append(next.board.toString());
+            } else {
+                buffer.append(next.board.toString() + "\n└── ").append(next.board.toString() + "    ");
+            }
+        }
     }
 
 

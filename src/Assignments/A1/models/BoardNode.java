@@ -1,18 +1,22 @@
 package Assignments.A1.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoardNode implements Comparable<BoardNode> {
 
     public BoardNode parent;
     public int heuristic;
     public int cost;
     public Board board;
-    public List<String>  
+    public List<BoardNode> children;
 
     public BoardNode(Board board, BoardNode parent) {
         this.board = board;
         this.parent = parent;
         this.heuristic = this.getHeuristic();
         this.cost = this.getActualCost();
+        this.children = new ArrayList<>();
     }
 
     private int getActualCost() {
@@ -21,6 +25,10 @@ public class BoardNode implements Comparable<BoardNode> {
         } else {
             return 0;
         }
+    }
+
+    public void addChild(BoardNode node) {
+        children.add(node);
     }
 
 

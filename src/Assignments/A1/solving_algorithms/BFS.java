@@ -11,12 +11,12 @@ import java.util.PriorityQueue;
 
 public class BFS {
 
-    private final Board solved = new Board();
     private final HashSet<Board> visited = new HashSet<>();
-    public BoardNode test;
+    private static final Board solved = new Board();
 
-    public Board traverse(Board root) {
+    public BoardNode traverse(Board root) {
         PriorityQueue<BoardNode> boards = new PriorityQueue<>(new BFSPriority());
+        HashSet<Board> visited = new HashSet<>();
         boards.add(new BoardNode(root, null));
         BoardNode node = null;
         Board current = new Board(root);
@@ -31,11 +31,12 @@ public class BFS {
             for (Move move : children) {
                 Board child = new Board(node.board);
                 child.swap(move);
-                boards.add(new BoardNode(child, node));
+                BoardNode childNode = new BoardNode(child, node);
+                boards.add(childNode);
+                node.addChild(childNode);
             }
         }
-        test = node;
-        return node.board;
+        return node;
     }
 }
 
