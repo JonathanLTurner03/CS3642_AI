@@ -3,13 +3,14 @@ package Assignments.A1.solving_algorithms;
 import Assignments.A1.models.Board;
 import Assignments.A1.models.BoardNode;
 import Assignments.A1.models.Move;
+import Assignments.A1.models.Solver;
 
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class UCS {
+public class UCS implements Solver {
     private final Board solved = new Board();
     private final HashSet<Board> visited = new HashSet<>();
 
