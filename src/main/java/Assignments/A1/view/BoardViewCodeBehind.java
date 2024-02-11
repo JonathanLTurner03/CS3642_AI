@@ -5,8 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import javax.swing.tree.TreeNode;
-
 public class BoardViewCodeBehind {
 
     @FXML
@@ -16,13 +14,19 @@ public class BoardViewCodeBehind {
     private Label current_board;
 
     @FXML
+    private Label alg_speed;
+
+    @FXML
     private Button generate_board;
 
     @FXML
     private MenuButton menu_alg;
 
     @FXML
-    private ToggleButton showSolvedPath;
+    private ToggleButton expanded;
+
+    @FXML
+    private ToggleButton showOnlySolvedPath;
 
     @FXML
     private MenuItem AStar;
@@ -38,9 +42,6 @@ public class BoardViewCodeBehind {
 
     @FXML
     private Button solve_button;
-
-    @FXML
-    private ProgressBar solving_prog;
 
     @FXML
     private Label gen_board_err;
@@ -63,8 +64,8 @@ public class BoardViewCodeBehind {
         this.AStar.disableProperty().bindBidirectional(viewModel.AStarProperty());
         this.gen_board_err.visibleProperty().bindBidirectional(viewModel.genBoardErrProperty());
         this.no_solv_alg_err.visibleProperty().bindBidirectional(viewModel.solvingAlgErrProperty());
-
-
+        this.expanded.selectedProperty().bindBidirectional(viewModel.expandedProperty());
+        this.alg_speed.textProperty().bindBidirectional(viewModel.algSpeedProperty());
     }
 
     public void onGenerateBoard(ActionEvent actionEvent) {
@@ -72,11 +73,15 @@ public class BoardViewCodeBehind {
     }
 
     public void showSolvedPath(ActionEvent actionEvent) {
-
+        if (this.viewModel.getSolvedRootNode() != null) {
+            this.viewModel.updateDisplay();
+        }
+        this.spanning_tree.setRoot(viewModel.getSolvedRootNode());
     }
 
     public void onSolveButton(ActionEvent actionEvent) {
         viewModel.solveBoard();
+        viewModel.updateDisplay();
         this.spanning_tree.setRoot(viewModel.getSolvedRootNode());
     }
 

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.Pane?>
@@ -34,10 +33,9 @@
         </menus>
       </MenuBar>
       <TreeView fx:id="spanning_tree" layoutX="334.0" layoutY="67.0" prefHeight="416.0" prefWidth="532.0" />
-      <ToggleButton fx:id="showSolvedPath" layoutX="545.0" layoutY="34.0" mnemonicParsing="false" onAction="#showSolvedPath" text="Show Solved Path" />
-      <ProgressBar id="solve_board_progress" fx:id="solving_prog" layoutX="500.0" layoutY="538.0" mouseTransparent="true" prefWidth="200.0" progress="0.0" />
+      <ToggleButton fx:id="expanded" layoutX="547.0" layoutY="33.0" mnemonicParsing="false" onAction="#showSolvedPath" text="Expand Directory" />
       <Button id="generate_board" fx:id="generate_board" layoutX="97.0" layoutY="367.0" mnemonicParsing="false" onAction="#onGenerateBoard" text="Generate Random Board" />
-      <Label fx:id="current_board" alignment="CENTER" layoutX="104.0" layoutY="129.0" prefHeight="184.0" prefWidth="134.0" text="0 1 2 8 0 4 7 6 5" textAlignment="JUSTIFY" wrapText="true">
+      <Label fx:id="current_board" alignment="CENTER" layoutX="104.0" layoutY="129.0" prefHeight="184.0" prefWidth="134.0" textAlignment="JUSTIFY" wrapText="true">
          <font>
             <Font size="41.0" />
          </font>
@@ -52,7 +50,7 @@
         </items>
       </MenuButton>
       <Label layoutX="728.0" layoutY="507.0" text="Algorithm Speed (ms): " />
-      <Label layoutX="849.0" layoutY="507.0" text="0" />
+      <Label fx:id="alg_speed" layoutX="849.0" layoutY="507.0" text="0" />
       <Label fx:id="gen_board_err" layoutX="37.0" layoutY="525.0" prefHeight="26.0" prefWidth="325.0" text="You must generate a board before solving" textFill="RED" visible="false">
          <font>
             <Font size="17.0" />

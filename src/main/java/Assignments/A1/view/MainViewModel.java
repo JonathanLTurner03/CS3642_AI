@@ -8,27 +8,24 @@ import Assignments.A1.solving_algorithms.AStar;
 import Assignments.A1.solving_algorithms.BFS;
 import Assignments.A1.solving_algorithms.UCS;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
+
+import java.util.Date;
 
 public class MainViewModel {
 
     private StringProperty currentBoardProperty, algSpeedProperty;
-    private BooleanProperty showSolvedPath, DFS, UCS, BFS, AStar, solvingAlgErr, genBoardErr;
-    private DoubleProperty solvingProgressProperty;
+    private BooleanProperty expanded, DFS, UCS, BFS, AStar, solvingAlgErr, genBoardErr;
     private String selectedAlg;
-    private final ObservableList<BoardNode> spanningTree = FXCollections.observableArrayList();
-    private final ObjectProperty<ObservableList<BoardNode>> spanningTreeProperty = new SimpleObjectProperty<>(spanningTree);
 
     private BoardNode current = new BoardNode(new Board(), null);
     private TreeItem<BoardNode> solvedRootNode = null;
+    private BoardNode solvedRootBoardNode = null;
 
     public MainViewModel() {
         this.currentBoardProperty = new SimpleStringProperty();
         this.algSpeedProperty = new SimpleStringProperty();
-        this.showSolvedPath = new SimpleBooleanProperty();
-        this.solvingProgressProperty = new SimpleDoubleProperty();
+        this.expanded = new SimpleBooleanProperty();
         this.DFS = new SimpleBooleanProperty();
         this.UCS = new SimpleBooleanProperty();
         this.BFS = new SimpleBooleanProperty();
@@ -83,25 +80,29 @@ public class MainViewModel {
         } else if (AStar.getValue()) {
             solver = new AStar();
         }
+        Date start = new Date();
         BoardNode solved = solver.traverse(this.current.board);
+        Date end = new Date();
+        long runtime = end.getTime() - start.getTime();
+        this.algSpeedProperty.setValue(String.valueOf(runtime));
+
         currentBoardProperty.setValue(solved.board.toString());
         BoardNode root = solved;
         while (root.parent != null) {
             root = root.parent;
         }
-        this.solvedRootNode = rebuildTree(root);
+        this.solvedRootNode = rebuildTree(root, this.expanded.getValue());
+        this.solvedRootBoardNode = root;
+    }
+
+    public void updateDisplay() {
+        TreeItem<BoardNode> newRoot = null;
+        newRoot = this.rebuildTree(this.solvedRootBoardNode, this.expanded.getValue());
+        this.solvedRootNode = newRoot;
     }
 
     public TreeItem<BoardNode> getSolvedRootNode() {
         return solvedRootNode;
-    }
-
-    public ObservableList<BoardNode> getSpanningTree() {
-        return spanningTreeProperty.get();
-    }
-
-    public ObjectProperty<ObservableList<BoardNode>> spanningTreeProperty() {
-        return spanningTreeProperty;
     }
 
     public BooleanProperty DFSProperty() {
@@ -128,17 +129,31 @@ public class MainViewModel {
         return genBoardErr;
     }
 
-    public TreeItem<BoardNode> rebuildTree(BoardNode root) {
+    private TreeItem<BoardNode> rebuildTree(BoardNode root, boolean expanded) {
         TreeItem<BoardNode> treeItem = new TreeItem<>(root);
-
-        // Recursively create TreeItems for child nodes
         for (BoardNode child : root.children) {
-            TreeItem<BoardNode> childItem = rebuildTree(child);
+            TreeItem<BoardNode> childItem = rebuildTree(child, expanded);
             treeItem.getChildren().add(childItem);
         }
+        treeItem.setExpanded(expanded);
 
         return treeItem;
     }
 
 
+    public boolean getExpanded() {
+        return expanded.get();
+    }
+
+    public BooleanProperty expandedProperty() {
+        return expanded;
+    }
+
+    public String getAlgSpeedProperty() {
+        return algSpeedProperty.get();
+    }
+
+    public StringProperty algSpeedProperty() {
+        return algSpeedProperty;
+    }
 }

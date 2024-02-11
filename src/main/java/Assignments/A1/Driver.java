@@ -53,6 +53,7 @@ public class Driver {
             Date end = new Date();
             if (result.board != null) {
                 long runtime = end.getTime() - start.getTime();
+
                 timer.add(runtime);
                 successes++;
                 node = result;
