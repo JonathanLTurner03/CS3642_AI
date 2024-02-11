@@ -20,6 +20,9 @@ public class BoardViewCodeBehind {
     private Button generate_board;
 
     @FXML
+    private Label disclaimer;
+
+    @FXML
     private MenuButton menu_alg;
 
     @FXML
@@ -66,6 +69,7 @@ public class BoardViewCodeBehind {
         this.no_solv_alg_err.visibleProperty().bindBidirectional(viewModel.solvingAlgErrProperty());
         this.expanded.selectedProperty().bindBidirectional(viewModel.expandedProperty());
         this.alg_speed.textProperty().bindBidirectional(viewModel.algSpeedProperty());
+        this.disclaimer.visibleProperty().bindBidirectional(viewModel.disclaimerProperty());
     }
 
     public void onGenerateBoard(ActionEvent actionEvent) {

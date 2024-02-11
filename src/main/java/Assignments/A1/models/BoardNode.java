@@ -9,6 +9,7 @@ public class BoardNode implements Comparable<BoardNode> {
     public int heuristic, cost, expected;
     public Board board;
     public List<BoardNode> children;
+    public int depth = -1;
 
     public BoardNode(Board board, BoardNode parent) {
         this.board = board;
@@ -17,6 +18,10 @@ public class BoardNode implements Comparable<BoardNode> {
         this.cost = this.getActualCost();
         this.expected = this.cost + this.expected;
         this.children = new ArrayList<>();
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
 
     private int getActualCost() {

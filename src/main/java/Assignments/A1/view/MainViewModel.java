@@ -6,16 +6,18 @@ import Assignments.A1.models.BoardNode;
 import Assignments.A1.models.Solver;
 import Assignments.A1.solving_algorithms.AStar;
 import Assignments.A1.solving_algorithms.BFS;
+import Assignments.A1.solving_algorithms.DFS;
 import Assignments.A1.solving_algorithms.UCS;
 import javafx.beans.property.*;
 import javafx.scene.control.TreeItem;
 
 import java.util.Date;
+import java.util.Stack;
 
 public class MainViewModel {
 
     private StringProperty currentBoardProperty, algSpeedProperty;
-    private BooleanProperty expanded, DFS, UCS, BFS, AStar, solvingAlgErr, genBoardErr;
+    private BooleanProperty expanded, DFS, UCS, BFS, AStar, solvingAlgErr, genBoardErr, disclaimer;
     private String selectedAlg;
 
     private BoardNode current = new BoardNode(new Board(), null);
@@ -25,6 +27,7 @@ public class MainViewModel {
     public MainViewModel() {
         this.currentBoardProperty = new SimpleStringProperty();
         this.algSpeedProperty = new SimpleStringProperty();
+        this.disclaimer = new SimpleBooleanProperty();
         this.expanded = new SimpleBooleanProperty();
         this.DFS = new SimpleBooleanProperty();
         this.UCS = new SimpleBooleanProperty();
@@ -47,6 +50,8 @@ public class MainViewModel {
         this.UCS.set(value.equals("UCS"));
         this.BFS.set(value.equals("BFS"));
         this.AStar.set(value.equals("AStar"));
+
+        this.disclaimer.setValue(value.equals("DFS"));
     }
 
     public StringProperty getCurrentBoardProperty() {
@@ -72,7 +77,7 @@ public class MainViewModel {
 
         Solver solver = null;
         if (DFS.getValue()) {
-//            solver = new DFS();
+            solver = new DFS();
         } else if (UCS.getValue()) {
             solver = new UCS();
         } else if (BFS.getValue()) {
@@ -93,6 +98,7 @@ public class MainViewModel {
         }
         this.solvedRootNode = rebuildTree(root, this.expanded.getValue());
         this.solvedRootBoardNode = root;
+        this.current = solved;
     }
 
     public void updateDisplay() {
@@ -130,14 +136,32 @@ public class MainViewModel {
     }
 
     private TreeItem<BoardNode> rebuildTree(BoardNode root, boolean expanded) {
-        TreeItem<BoardNode> treeItem = new TreeItem<>(root);
-        for (BoardNode child : root.children) {
-            TreeItem<BoardNode> childItem = rebuildTree(child, expanded);
-            treeItem.getChildren().add(childItem);
-        }
-        treeItem.setExpanded(expanded);
+        if (this.selectedAlg.equals("DFS")) {
+            Stack<BoardNode> generations = new Stack<>();
+            BoardNode temp = this.current;
+            while (temp != null) {
+                generations.push(temp);
+                temp = temp.parent;
+            }
+            TreeItem<BoardNode> rootItem = new TreeItem<>(root);
+            TreeItem<BoardNode> currItem = rootItem;
+            while (!generations.isEmpty()) {
+                TreeItem<BoardNode> child = new TreeItem<>(generations.pop());
+                currItem.getChildren().add(child);
+                currItem.setExpanded(expanded);
+                currItem = child;
+            }
+            return rootItem;
+        } else {
+            TreeItem<BoardNode> treeItem = new TreeItem<>(root);
+            for (BoardNode child : root.children) {
+                TreeItem<BoardNode> childItem = rebuildTree(child, expanded);
+                treeItem.getChildren().add(childItem);
+            }
+            treeItem.setExpanded(expanded);
 
-        return treeItem;
+            return treeItem;
+        }
     }
 
 
@@ -155,5 +179,13 @@ public class MainViewModel {
 
     public StringProperty algSpeedProperty() {
         return algSpeedProperty;
+    }
+
+    public boolean isDisclaimer() {
+        return disclaimer.get();
+    }
+
+    public BooleanProperty disclaimerProperty() {
+        return disclaimer;
     }
 }

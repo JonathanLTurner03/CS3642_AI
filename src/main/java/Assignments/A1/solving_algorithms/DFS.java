@@ -1,38 +1,42 @@
 package Assignments.A1.solving_algorithms;
 
-import Assignments.A1.models.Board;
-import Assignments.A1.models.BoardGenerator;
-import Assignments.A1.models.Move;
-import Assignments.A1.models.Pair;
+import Assignments.A1.models.*;
 import Assignments.A1.resources.Parameters;
 
 import java.util.*;
 
-public class DFS {
+public class DFS implements Solver {
 
     private final Board solved = new Board();
     private final List<String> tried = new ArrayList<>();
 
-    public Board traverse(Board root, int depth) {
-        Stack<Board> stack = new Stack<>();
-        stack.push(root);
+    public BoardNode traverse(Board root) {
+        Stack<BoardNode> stack = new Stack<>();
+        BoardNode rootNode = new BoardNode(root, null);
+        rootNode.setDepth(0);
+        stack.push(rootNode);
+
 
         while (!stack.isEmpty()) {
-            Board current = stack.pop();
-            if (current.equals(solved)) {
+            BoardNode current = stack.pop();
+
+            if (current.board.equals(solved)) {
                 return current;
             }
 
-            if (depth == Parameters.MAX_DEPTH || tried.contains(current.toString())) {
+            if (current.depth > Parameters.MAX_DEPTH || tried.contains(current.toString())) {
                 continue;
             }
             tried.add(current.toString());
 
-            List<Move> moves = current.getMoves();
+            List<Move> moves = current.board.getMoves();
             for (Move next : moves) {
                 Board child = next.getBoard();
                 child.swap(next);
-                stack.push(child);
+                BoardNode childNode = new BoardNode(child, current);
+                childNode.setDepth(current.depth+1);
+                stack.push(childNode);
+                current.addChild(childNode);
             }
         }
         return null;
