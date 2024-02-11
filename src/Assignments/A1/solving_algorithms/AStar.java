@@ -13,7 +13,7 @@ public class AStar {
     private final Board solved = new Board();
     private final HashSet<Board> visited = new HashSet<>();
 
-    public Board traverse(Board root) {
+    public BoardNode traverse(Board root) {
         PriorityQueue<BoardNode> boards = new PriorityQueue<>(new UCSPriority());
         boards.add(new BoardNode(root, null));
         BoardNode node = null;
@@ -32,7 +32,7 @@ public class AStar {
                 boards.add(new BoardNode(child, node));
             }
         }
-        return node.board;
+        return node;
     }
 }
 

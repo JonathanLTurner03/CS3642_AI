@@ -13,9 +13,7 @@ public class UCS {
     private final Board solved = new Board();
     private final HashSet<Board> visited = new HashSet<>();
 
-    public BoardNode test = null;
-
-    public Board traverse(Board root) {
+    public BoardNode traverse(Board root) {
         PriorityQueue<BoardNode> boards = new PriorityQueue<>(new UCSPriority());
         boards.add(new BoardNode(root, null));
         BoardNode node = null;
@@ -34,8 +32,7 @@ public class UCS {
                 boards.add(new BoardNode(child, node));
             }
         }
-        test = node;
-        return node.board;
+        return node;
     }
 }
 
