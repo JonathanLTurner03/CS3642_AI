@@ -33,7 +33,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TreeView fx:id="algorithm_results" layoutX="334.0" layoutY="67.0" prefHeight="416.0" prefWidth="532.0" />
+      <TreeView fx:id="spanning_tree" layoutX="334.0" layoutY="67.0" prefHeight="416.0" prefWidth="532.0" />
       <ToggleButton fx:id="showSolvedPath" layoutX="545.0" layoutY="34.0" mnemonicParsing="false" onAction="#showSolvedPath" text="Show Solved Path" />
       <ProgressBar id="solve_board_progress" fx:id="solving_prog" layoutX="500.0" layoutY="538.0" mouseTransparent="true" prefWidth="200.0" progress="0.0" />
       <Button id="generate_board" fx:id="generate_board" layoutX="97.0" layoutY="367.0" mnemonicParsing="false" onAction="#onGenerateBoard" text="Generate Random Board" />

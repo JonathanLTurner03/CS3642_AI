@@ -84,4 +84,9 @@ public class BoardNode implements Comparable<BoardNode> {
     public int compareTo(BoardNode o) { // BFS
         return Integer.compare(this.heuristic, o.heuristic);
     }
+
+    @Override
+    public String toString() {
+        return this.board.toString().replaceAll("\n", " ");
+    }
 }

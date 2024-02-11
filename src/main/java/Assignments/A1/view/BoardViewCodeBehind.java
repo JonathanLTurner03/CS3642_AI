@@ -5,10 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javax.swing.tree.TreeNode;
+
 public class BoardViewCodeBehind {
 
     @FXML
-    private TreeView<BoardNode> algorithm_results;
+    private TreeView<BoardNode> spanning_tree;
 
     @FXML
     private Label current_board;
@@ -61,6 +63,8 @@ public class BoardViewCodeBehind {
         this.AStar.disableProperty().bindBidirectional(viewModel.AStarProperty());
         this.gen_board_err.visibleProperty().bindBidirectional(viewModel.genBoardErrProperty());
         this.no_solv_alg_err.visibleProperty().bindBidirectional(viewModel.solvingAlgErrProperty());
+
+
     }
 
     public void onGenerateBoard(ActionEvent actionEvent) {
@@ -73,6 +77,7 @@ public class BoardViewCodeBehind {
 
     public void onSolveButton(ActionEvent actionEvent) {
         viewModel.solveBoard();
+        this.spanning_tree.setRoot(viewModel.getSolvedRootNode());
     }
 
     public void onAlgChange(ActionEvent actionEvent) {

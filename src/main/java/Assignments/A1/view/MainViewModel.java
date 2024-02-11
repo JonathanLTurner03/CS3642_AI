@@ -8,6 +8,9 @@ import Assignments.A1.solving_algorithms.AStar;
 import Assignments.A1.solving_algorithms.BFS;
 import Assignments.A1.solving_algorithms.UCS;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TreeItem;
 
 public class MainViewModel {
 
@@ -15,8 +18,11 @@ public class MainViewModel {
     private BooleanProperty showSolvedPath, DFS, UCS, BFS, AStar, solvingAlgErr, genBoardErr;
     private DoubleProperty solvingProgressProperty;
     private String selectedAlg;
+    private final ObservableList<BoardNode> spanningTree = FXCollections.observableArrayList();
+    private final ObjectProperty<ObservableList<BoardNode>> spanningTreeProperty = new SimpleObjectProperty<>(spanningTree);
 
     private BoardNode current = new BoardNode(new Board(), null);
+    private TreeItem<BoardNode> solvedRootNode = null;
 
     public MainViewModel() {
         this.currentBoardProperty = new SimpleStringProperty();
@@ -77,12 +83,26 @@ public class MainViewModel {
         } else if (AStar.getValue()) {
             solver = new AStar();
         }
-
         BoardNode solved = solver.traverse(this.current.board);
-
-        System.out.println(solved);
+        currentBoardProperty.setValue(solved.board.toString());
+        BoardNode root = solved;
+        while (root.parent != null) {
+            root = root.parent;
+        }
+        this.solvedRootNode = rebuildTree(root);
     }
 
+    public TreeItem<BoardNode> getSolvedRootNode() {
+        return solvedRootNode;
+    }
+
+    public ObservableList<BoardNode> getSpanningTree() {
+        return spanningTreeProperty.get();
+    }
+
+    public ObjectProperty<ObservableList<BoardNode>> spanningTreeProperty() {
+        return spanningTreeProperty;
+    }
 
     public BooleanProperty DFSProperty() {
         return DFS;
@@ -106,6 +126,18 @@ public class MainViewModel {
 
     public BooleanProperty genBoardErrProperty() {
         return genBoardErr;
+    }
+
+    public TreeItem<BoardNode> rebuildTree(BoardNode root) {
+        TreeItem<BoardNode> treeItem = new TreeItem<>(root);
+
+        // Recursively create TreeItems for child nodes
+        for (BoardNode child : root.children) {
+            TreeItem<BoardNode> childItem = rebuildTree(child);
+            treeItem.getChildren().add(childItem);
+        }
+
+        return treeItem;
     }
 
 
