@@ -3,14 +3,29 @@ package Assignments.A1.models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used to represent a board on a spanning tree.
+ *
+ * @author Jonathan Turner
+ * @version Spring 2024
+ */
 public class BoardNode implements Comparable<BoardNode> {
 
+    /* Fields used to hold each node's data. */
     public BoardNode parent;
-    public int heuristic, cost, expected;
     public Board board;
     public List<BoardNode> children;
-    public int depth = -1;
+    public int heuristic, cost, expected, depth;
 
+    /**
+     * Used to create a board with a parent and child nodes.
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @param board the board representing the node.
+     * @param parent the parent node, can be null.
+     */
     public BoardNode(Board board, BoardNode parent) {
         this.board = board;
         this.parent = parent;
@@ -20,9 +35,39 @@ public class BoardNode implements Comparable<BoardNode> {
         this.children = new ArrayList<>();
     }
 
-    public void setDepth(int depth) {
-        this.depth = depth;
+    /**
+     * adds a child to the node.
+     *
+     * @precondition child != null
+     * @postcondition the child is added..
+     */
+    public void addChild(BoardNode node) {
+        children.add(node);
     }
+
+    /* Overrides */
+
+    /**
+     * Overrides the Object compareTo method. Is a placehold for specifying priority in queues.
+     * Default: BFS
+     *
+     * @param o the object to be compared.
+     */
+    @Override
+    public int compareTo(BoardNode o) { // BFS
+        return Integer.compare(this.heuristic, o.heuristic);
+    }
+
+    /**
+     * Represents the board in a single string (no line breaks)
+     * @return the formatting string
+     */
+    @Override
+    public String toString() {
+        return this.board.toString().replaceAll("\n", " ");
+    }
+
+    /* Private Classes: End of JavaDocs */
 
     private int getActualCost() {
         if (this.parent != null) {
@@ -30,10 +75,6 @@ public class BoardNode implements Comparable<BoardNode> {
         } else {
             return 0;
         }
-    }
-
-    public void addChild(BoardNode node) {
-        children.add(node);
     }
 
     private int getHeuristic() {
@@ -82,15 +123,5 @@ public class BoardNode implements Comparable<BoardNode> {
                 break;
         }
         return result;
-    }
-
-    @Override
-    public int compareTo(BoardNode o) { // BFS
-        return Integer.compare(this.heuristic, o.heuristic);
-    }
-
-    @Override
-    public String toString() {
-        return this.board.toString().replaceAll("\n", " ");
     }
 }
