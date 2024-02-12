@@ -42,7 +42,7 @@ public class DFS implements Solver {
                 return current;
             }
 
-            if (current.depth > Parameters.MAX_DEPTH || tried.contains(current.toString())) {
+            if (current.depth > Parameters.MAX_DEPTH || tried.contains(current.board.toString())) {
                 continue;
             }
             tried.add(current.toString());
