@@ -10,7 +10,7 @@ import Assignments.A1.models.Board;
  */
 public class Move {
 
-    private Board board;
+    private final Board board;
     private final Pair<Integer> points;
     private boolean used;
 
