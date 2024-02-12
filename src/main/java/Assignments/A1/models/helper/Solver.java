@@ -12,6 +12,16 @@ import Assignments.A1.models.BoardNode;
 public interface Solver {
 
     /**
+     * Returns the number of nodes from the previous iterations.
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @return the number of nodes from the interation.
+     */
+    int getNumberOfNodes();
+
+    /**
      * Solves for, finds and creates a spanning representing the solving pattern.
      *
      * @precondition none
