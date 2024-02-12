@@ -19,7 +19,7 @@ public interface Solver {
      *
      * @return the number of nodes from the interation.
      */
-    int getNumberOfNodes();
+    int getNumOfNodes();
 
     /**
      * Solves for, finds and creates a spanning representing the solving pattern.

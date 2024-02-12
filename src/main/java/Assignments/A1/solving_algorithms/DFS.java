@@ -17,6 +17,7 @@ public class DFS implements Solver {
     /* Private Fields for Searching */
     private final Board solved = new Board();
     private final List<String> tried = new ArrayList<>();
+    private int numOfNodes = 1;
 
     /**
      * Traverses through a Board using a Stack, allowing for DFS LIFO.
@@ -33,7 +34,7 @@ public class DFS implements Solver {
         BoardNode rootNode = new BoardNode(root, null);
         rootNode.depth = 0;
         stack.push(rootNode);
-
+        numOfNodes = 1;
         while (!stack.isEmpty()) {
             BoardNode current = stack.pop();
 
@@ -54,8 +55,21 @@ public class DFS implements Solver {
                 childNode.depth = current.depth+1;
                 stack.push(childNode);
                 current.addChild(childNode);
+                numOfNodes++;
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the number of nodes from the previous iterations.
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @return the number of nodes from the interations.
+     */
+    public int getNumOfNodes() {
+        return numOfNodes;
     }
 }
