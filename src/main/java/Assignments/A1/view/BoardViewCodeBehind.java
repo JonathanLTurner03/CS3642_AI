@@ -30,9 +30,6 @@ public class BoardViewCodeBehind {
     private ToggleButton expanded;
 
     @FXML
-    private ToggleButton showOnlySolvedPath;
-
-    @FXML
     private MenuItem AStar;
 
     @FXML
@@ -45,6 +42,12 @@ public class BoardViewCodeBehind {
     private MenuItem UCS;
 
     @FXML
+    private Button openPerformance;
+
+    @FXML
+    private Button runPerformanceCHeck;
+
+    @FXML
     private Button solve_button;
 
     @FXML
@@ -52,6 +55,9 @@ public class BoardViewCodeBehind {
 
     @FXML
     private Label no_solv_alg_err;
+
+    @FXML
+    private Label iteration_count;
 
     private MainViewModel viewModel;
 
@@ -71,8 +77,16 @@ public class BoardViewCodeBehind {
         this.expanded.selectedProperty().bindBidirectional(viewModel.expandedProperty());
         this.alg_speed.textProperty().bindBidirectional(viewModel.algSpeedProperty());
         this.disclaimer.visibleProperty().bindBidirectional(viewModel.disclaimerProperty());
+        this.runPerformanceCHeck.visibleProperty().bindBidirectional(viewModel.runPerfProperty());
+        this.openPerformance.visibleProperty().bindBidirectional(viewModel.openPerfProperty());
+        this.iteration_count.textProperty().bindBidirectional(viewModel.iterationCounterProperty());
 
         this.current_board.textProperty().setValue(new Board().toString());
+    }
+
+    @FXML
+    void runPerformanceCheck(ActionEvent event) {
+        this.viewModel.runPerformanceCheck();
     }
 
     public void onGenerateBoard(ActionEvent actionEvent) {
@@ -95,6 +109,11 @@ public class BoardViewCodeBehind {
 
     public void onAlgChange(ActionEvent actionEvent) {
 
+    }
+
+    @FXML
+    void openPerformance(ActionEvent event) {
+        this.viewModel.openPerf();
     }
 
     public void onDFS(ActionEvent actionEvent) {

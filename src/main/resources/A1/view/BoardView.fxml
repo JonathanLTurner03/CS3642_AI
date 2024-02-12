@@ -10,36 +10,37 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Assignments.A1.view.BoardViewCodeBehind">
-   <children>
-      <TreeView fx:id="spanning_tree" layoutX="334.0" layoutY="67.0" prefHeight="416.0" prefWidth="532.0" />
-      <ToggleButton fx:id="expanded" layoutX="547.0" layoutY="33.0" mnemonicParsing="false" onAction="#showSolvedPath" text="Expand Directory" />
-      <Button id="generate_board" fx:id="generate_board" layoutX="97.0" layoutY="367.0" mnemonicParsing="false" onAction="#onGenerateBoard" text="Generate Random Board" />
-      <Label fx:id="current_board" alignment="CENTER" layoutX="104.0" layoutY="129.0" prefHeight="184.0" prefWidth="134.0" textAlignment="JUSTIFY" wrapText="true">
-         <font>
-            <Font size="41.0" />
-         </font>
-      </Label>
-      <Button id="solve_board" fx:id="solve_button" layoutX="561.0" layoutY="503.0" mnemonicParsing="false" onAction="#onSolveButton" text="Solve Board" />
-      <MenuButton fx:id="menu_alg" layoutX="103.0" layoutY="416.0" mnemonicParsing="false" onAction="#onAlgChange" text="Traversal Algorithm">
-        <items>
-          <MenuItem fx:id="DFS" mnemonicParsing="false" onAction="#onDFS" text="Depth-First Search" />
-          <MenuItem fx:id="UCS" mnemonicParsing="false" onAction="#onUCS" text="Uniform-Cost Search" />
-            <MenuItem fx:id="BFS" mnemonicParsing="false" onAction="#onBFS" text="Best-First Search" />
-            <MenuItem fx:id="AStar" mnemonicParsing="false" onAction="#onAStar" text="A* (A Star)" />
-        </items>
-      </MenuButton>
-      <Label layoutX="728.0" layoutY="507.0" text="Algorithm Speed (ms): " />
-      <Label fx:id="alg_speed" layoutX="849.0" layoutY="507.0" text="0" />
-      <Label fx:id="gen_board_err" layoutX="37.0" layoutY="525.0" prefHeight="26.0" prefWidth="325.0" text="You must generate a board before solving" textFill="RED" visible="false">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="no_solv_alg_err" layoutX="37.0" layoutY="525.0" prefHeight="26.0" prefWidth="408.0" text="You must select a Traversal Algorithm before solving" textFill="RED" visible="false">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="disclaimer" layoutX="176.0" layoutY="541.0" prefHeight="42.0" prefWidth="558.0" text="**Note: If traversing with DFS, it only shows the solving directory to prevent JavaFX StackOverflow.** However, the traversal algorithm and algorithm speed does explore all nodes despite directory display." textAlignment="CENTER" wrapText="true" />
-   </children>
+   <TreeView fx:id="spanning_tree" layoutX="334.0" layoutY="67.0" prefHeight="416.0" prefWidth="532.0" />
+   <ToggleButton fx:id="expanded" layoutX="547.0" layoutY="33.0" mnemonicParsing="false" onAction="#showSolvedPath" text="Expand Directory" />
+   <Button id="generate_board" fx:id="generate_board" layoutX="97.0" layoutY="367.0" mnemonicParsing="false" onAction="#onGenerateBoard" text="Generate Random Board" />
+   <Label fx:id="current_board" alignment="CENTER" layoutX="104.0" layoutY="129.0" prefHeight="184.0" prefWidth="134.0" textAlignment="JUSTIFY" wrapText="true">
+      <font>
+         <Font size="41.0" />
+      </font>
+   </Label>
+   <Button id="solve_board" fx:id="solve_button" layoutX="561.0" layoutY="503.0" mnemonicParsing="false" onAction="#onSolveButton" text="Solve Board" />
+   <MenuButton fx:id="menu_alg" layoutX="103.0" layoutY="416.0" mnemonicParsing="false" onAction="#onAlgChange" text="Traversal Algorithm">
+      <items>
+         <MenuItem fx:id="DFS" mnemonicParsing="false" onAction="#onDFS" text="Depth-First Search" />
+         <MenuItem fx:id="UCS" mnemonicParsing="false" onAction="#onUCS" text="Uniform-Cost Search" />
+         <MenuItem fx:id="BFS" mnemonicParsing="false" onAction="#onBFS" text="Best-First Search" />
+         <MenuItem fx:id="AStar" mnemonicParsing="false" onAction="#onAStar" text="A* (A Star)" />
+      </items>
+   </MenuButton>
+   <Label layoutX="728.0" layoutY="507.0" text="Algorithm Speed (ms): " />
+   <Label fx:id="alg_speed" layoutX="849.0" layoutY="507.0" text="0" />
+   <Label fx:id="gen_board_err" layoutX="37.0" layoutY="525.0" prefHeight="26.0" prefWidth="325.0" text="You must generate a board before solving" textFill="RED" visible="false">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Label>
+   <Label fx:id="no_solv_alg_err" layoutX="37.0" layoutY="525.0" prefHeight="26.0" prefWidth="408.0" text="You must select a Traversal Algorithm before solving" textFill="RED" visible="false">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="disclaimer" layoutX="176.0" layoutY="541.0" prefHeight="42.0" prefWidth="558.0" text="**Note: If traversing with DFS, it only shows the solving directory to prevent JavaFX StackOverflow.** However, the traversal algorithm and algorithm speed does explore all nodes despite directory display." textAlignment="CENTER" wrapText="true" />
+   <Button fx:id="runPerformanceCHeck" layoutX="77.0" layoutY="471.0" mnemonicParsing="false" onAction="#runPerformanceCheck" text="Performance Analysis (100 Runs)" visible="false" />
+   <Button fx:id="openPerformance" layoutX="54.0" layoutY="471.0" mnemonicParsing="false" onAction="#openPerformance" text="Open Performance Analysis (Default Editor)" />
+   <Label fx:id="iteration_count" layoutX="123.0" layoutY="506.0" prefHeight="36.0" prefWidth="106.0" wrapText="true" />
 </Pane>
