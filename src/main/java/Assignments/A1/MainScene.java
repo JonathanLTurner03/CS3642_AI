@@ -6,6 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The main Scene that is ran by GUILauncher to fix VM argument requirements.
+ *
+ * @author Jonathan Turner
+ * @version Spring 2024
+ */
 public class MainScene extends Application {
 
     @Override
