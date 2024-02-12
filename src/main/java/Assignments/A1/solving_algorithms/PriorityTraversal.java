@@ -22,6 +22,7 @@ public class PriorityTraversal implements Solver {
     }
 
     public BoardNode traverse(Board root) {
+        visited.clear();
         PriorityQueue<BoardNode> boards = new PriorityQueue<>(comparator);
         boards.add(new BoardNode(root, null));
         BoardNode node = null;
