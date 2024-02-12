@@ -6,6 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Code Behind file for MainView.fxml
+ *
+ * @author Jonathan Turner
+ * @version Spring 2024
+ */
 public class BoardViewCodeBehind {
 
     @FXML
@@ -89,6 +95,11 @@ public class BoardViewCodeBehind {
         this.viewModel.runPerformanceCheck();
     }
 
+    @FXML
+    void openPerformance(ActionEvent event) {
+        this.viewModel.openPerf();
+    }
+
     public void onGenerateBoard(ActionEvent actionEvent) {
         this.viewModel.generateBoard();
     }
@@ -109,11 +120,6 @@ public class BoardViewCodeBehind {
 
     public void onAlgChange(ActionEvent actionEvent) {
 
-    }
-
-    @FXML
-    void openPerformance(ActionEvent event) {
-        this.viewModel.openPerf();
     }
 
     public void onDFS(ActionEvent actionEvent) {
