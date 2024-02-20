@@ -76,9 +76,9 @@ public class PopulationManager {
             throw new IllegalArgumentException("Parents cannot be null.");
         }
 
-        /* Create a new individual to hold the genes of the children */
-        Individual firstChild = new Individual();
-        Individual secondChild = new Individual();
+        /* Two int arrays to hold the genes of the children */
+        int[] firstChild = new int[6];
+        int[] secondChild = new int[6];
 
         /* Randomly select a crossover point */
         Random generator = new Random();
@@ -86,16 +86,19 @@ public class PopulationManager {
 
         /* Copy the genes of the same side parents to the same side child */
         for (int i = 0; i < crossover_point; i++) {
-            firstChild.genes[i] = firstParent.genes[i];
-            secondChild.genes[i] = secondParent.genes[i];
+            firstChild[i] = firstParent.genes[i];
+            secondChild[i] = secondParent.genes[i];
         }
 
         /* Copy the genes of the opposite side parents to the opposite side child */
         for (int i = crossover_point; i < 6; i++) {
-            firstChild.genes[i] = secondParent.genes[i];
-            secondChild.genes[i] = firstParent.genes[i];
+            firstChild[i] = secondParent.genes[i];
+            secondChild[i] = firstParent.genes[i];
         }
 
-        return new Individual[] {firstChild, secondChild};
+        return new Individual[] {
+                new Individual(firstChild),
+                new Individual(secondChild)
+        };
     }
 }
