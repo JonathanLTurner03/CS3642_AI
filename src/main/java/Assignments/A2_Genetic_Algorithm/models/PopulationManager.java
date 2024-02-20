@@ -1,9 +1,6 @@
 package Assignments.A2_Genetic_Algorithm.models;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * A class to manage the population of individuals and performs
@@ -36,7 +33,11 @@ public class PopulationManager {
 
         int ancestryCount = 0;
         BinaryVector[] generation = population;
+
+        /* Begins loop for Genetic Algorithm */
         while (!check(generation)) {
+
+            /* Performs an Elite Selection to choose the ancestors for the next generation */
             generation = selection(generation);
             List<BinaryVector> offspring = new ArrayList<>();
             for (int parents = 0; parents < generation.length-2; parents+=2) {
@@ -44,16 +45,27 @@ public class PopulationManager {
                 offspring.addAll(List.of(directDescendants));
             }
 
-            BinaryVector[] nextGen = new BinaryVector[n_pop];
-            for (int i = 0; i < generation.length; i++) {
-                nextGen[i] = mutation(generation[i], p_m);
-            }
-            for (int i = generation.length; i < nextGen.length; i++) {
-                nextGen[i] = mutation(offspring.get(i), p_m);
+            /* Used when a list is even and the split is on an odd number. */
+            if ((n_pop/2) % 2 == 1) {
+                int secondToLast = generation.length-2;
+                offspring.add(crossover(generation[secondToLast], generation[secondToLast+1])[0]);
             }
 
-            generation = nextGen;
-            ancestryCount++;
+            /* Adds the values of the next Elite and their offspring to the next generation */
+            BinaryVector[] nextGen = new BinaryVector[n_pop];
+            for (int i = 0; i < generation.length; i++) {
+                /* Mutates the BinaryVector when added to next generation */
+                nextGen[i] = mutation(generation[i], p_m);
+            }
+
+            /* Uses both the index and continued index (from the previous loop) to add the offspring. */
+            for (int i = 0, continued_index = generation.length; i < offspring.size(); i++, continued_index++) {
+                /* Mutates the BinaryVector when added to next generation */
+                nextGen[continued_index] = mutation(offspring.get(i), p_m);
+            }
+
+            generation = nextGen; // Progresses the generation to the next generation.
+            ancestryCount++; // Increments the number of generations
         }
         return ancestryCount;
     }
@@ -87,7 +99,7 @@ public class PopulationManager {
      */
     public static BinaryVector[] generate_population(int n_pop) {
         /* Check if the population size is positive */
-        if (n_pop < 1 || n_pop % 2 == 1) {
+        if (n_pop < 1) {
             throw new IllegalArgumentException("Population size must be positive and even.");
         }
 
@@ -109,14 +121,19 @@ public class PopulationManager {
      * @return the elite selection population.
      */
     public static BinaryVector[] selection(BinaryVector[] population) {
-        if (population == null || population.length % 2 != 0) {
+        if (population == null) {
             throw new IllegalArgumentException("The population must be valid and even.");
         }
-
         List<BinaryVector> unorderedPop = new ArrayList<>(List.of(population));
         Collections.sort(unorderedPop);
 
-        BinaryVector[] selected = new BinaryVector[population.length/2];
+        BinaryVector[] selected;
+        if ((population.length/2) % 2 == 1) {
+            selected = new BinaryVector[(population.length + 1) / 2];
+        } else {
+            selected = new BinaryVector[population.length / 2];
+        }
+
         for (int i = 0; i < selected.length; i++) {
             selected[i] = unorderedPop.get(i);
         }
