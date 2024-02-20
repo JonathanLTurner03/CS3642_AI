@@ -59,6 +59,17 @@ public class BinaryVector implements Comparator<BinaryVector> {
         return result;
     }
 
+    /**
+     * Compares two BinaryVectors against each other.
+     *
+     * @precondition o1 != null && o2 != null
+     * @postcondition none
+     *
+     * @param o1 the first object to be compared.
+     * @param o2 the second object to be compared.
+     *
+     * @return 1 if the first is bigger, -1 if the second is bigger, if equal 0.
+     */
     @Override
     public int compare(BinaryVector o1, BinaryVector o2) {
         int firstFitness = PopulationManager.fitness(o1);
