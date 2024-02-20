@@ -1,4 +1,4 @@
-package Assignments.A1.models;
+package Assignments.A1_8Puzzles.models;
 
 import java.util.ArrayList;
 import java.util.List;

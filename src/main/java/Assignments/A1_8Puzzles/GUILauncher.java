@@ -1,4 +1,4 @@
-package Assignments.A1;
+package Assignments.A1_8Puzzles;
 
 /**
  * Launches the MainScene

@@ -1,4 +1,4 @@
-package Assignments.A1.resources;
+package Assignments.A1_8Puzzles.resources;
 
 /**
  * Holds any constants needed. May be re-modified later to allow for configuration.

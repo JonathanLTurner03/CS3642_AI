@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Assignments.A1.view.BoardViewCodeBehind">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Assignments.A1_8Puzzles.view.BoardViewCodeBehind">
    <TreeView fx:id="spanning_tree" layoutX="334.0" layoutY="67.0" prefHeight="416.0" prefWidth="532.0" />
    <ToggleButton fx:id="expanded" layoutX="547.0" layoutY="33.0" mnemonicParsing="false" onAction="#showSolvedPath" text="Expand Directory" />
    <Button id="generate_board" fx:id="generate_board" layoutX="97.0" layoutY="367.0" mnemonicParsing="false" onAction="#onGenerateBoard" text="Generate Random Board" />

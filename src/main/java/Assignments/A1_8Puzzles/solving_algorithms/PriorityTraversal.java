@@ -1,9 +1,9 @@
-package Assignments.A1.solving_algorithms;
+package Assignments.A1_8Puzzles.solving_algorithms;
 
-import Assignments.A1.models.Board;
-import Assignments.A1.models.BoardNode;
-import Assignments.A1.models.helper.Move;
-import Assignments.A1.models.helper.Solver;
+import Assignments.A1_8Puzzles.models.Board;
+import Assignments.A1_8Puzzles.models.BoardNode;
+import Assignments.A1_8Puzzles.models.helper.Move;
+import Assignments.A1_8Puzzles.models.helper.Solver;
 
 import java.util.Comparator;
 import java.util.HashSet;

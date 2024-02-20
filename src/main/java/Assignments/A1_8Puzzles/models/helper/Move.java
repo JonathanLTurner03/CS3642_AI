@@ -1,6 +1,6 @@
-package Assignments.A1.models.helper;
+package Assignments.A1_8Puzzles.models.helper;
 
-import Assignments.A1.models.Board;
+import Assignments.A1_8Puzzles.models.Board;
 
 /**
  * Used to keep track of moves in either a stack or queues.

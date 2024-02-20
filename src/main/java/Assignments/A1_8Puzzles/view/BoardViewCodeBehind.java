@@ -1,7 +1,7 @@
-package Assignments.A1.view;
+package Assignments.A1_8Puzzles.view;
 
-import Assignments.A1.models.Board;
-import Assignments.A1.models.BoardNode;
+import Assignments.A1_8Puzzles.models.Board;
+import Assignments.A1_8Puzzles.models.BoardNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
