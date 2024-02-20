@@ -71,7 +71,7 @@ public class BinaryVector implements Comparable<BinaryVector> {
     @Override
     public int compareTo(BinaryVector o) {
         int firstFitness = PopulationManager.fitness(this);
-        int secondFitness = PopulationManager.fitness((BinaryVector) o);
+        int secondFitness = PopulationManager.fitness(o);
 
         if (firstFitness > secondFitness) {
             return 1;
