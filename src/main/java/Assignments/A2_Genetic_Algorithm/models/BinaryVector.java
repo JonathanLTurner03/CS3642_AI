@@ -1,5 +1,6 @@
 package Assignments.A2_Genetic_Algorithm.models;
 
+import java.util.Comparator;
 import java.util.Random;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Random;
  * @author Jonathan Turner
  * @version Spring 2024
  */
-public class BinaryVector {
+public class BinaryVector implements Comparator<BinaryVector> {
 
     public int[] genes;
 
@@ -56,5 +57,18 @@ public class BinaryVector {
         }
         result = result.substring(0, result.length()-1) + "]";
         return result;
+    }
+
+    @Override
+    public int compare(BinaryVector o1, BinaryVector o2) {
+        int firstFitness = PopulationManager.fitness(o1);
+        int secondFitness = PopulationManager.fitness(o2);
+
+        if (firstFitness > secondFitness) {
+            return 1;
+        } else if (firstFitness < secondFitness) {
+            return -1;
+        }
+        return 0;
     }
 }
