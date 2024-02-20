@@ -14,10 +14,48 @@ import java.util.Random;
  */
 public class PopulationManager {
 
-    public static void evolution(BinaryVector[] population) {
+    public static double p_m;
+    public static int n_pop;
 
+    /**
+     * Performs the Genetic Algorithm (GA) using a pre-provided population and a mutation percentage
+     * and size of population. It first finds the Elite individuals, crossover's their values,
+     * and mutates them. Lastly it adds the values back to the population and checks if the
+     * desired value is presents.
+     *
+     * @precondition p_m != 0.0 && n_pop != 0
+     * @postcondition none
+     *
+     * @param population the population being operated on
+     * @return the number of generations.
+     */
+    public static int evolution(BinaryVector[] population) {
+        if (p_m == 0.0 || n_pop == 0) {
+            throw new IllegalArgumentException("the population size and mutation probability must be set before running.");
+        }
 
+        int ancestryCount = 0;
+        BinaryVector[] generation = population;
+        while (!check(generation)) {
+            generation = selection(generation);
+            List<BinaryVector> offspring = new ArrayList<>();
+            for (int parents = 0; parents < generation.length-2; parents+=2) {
+                BinaryVector[] directDescendants = crossover(generation[parents], generation[parents+1]);
+                offspring.addAll(List.of(directDescendants));
+            }
 
+            BinaryVector[] nextGen = new BinaryVector[n_pop];
+            for (int i = 0; i < generation.length; i++) {
+                nextGen[i] = mutation(generation[i], p_m);
+            }
+            for (int i = generation.length; i < nextGen.length; i++) {
+                nextGen[i] = mutation(offspring.get(i), p_m);
+            }
+
+            generation = nextGen;
+            ancestryCount++;
+        }
+        return ancestryCount;
     }
 
     /**
