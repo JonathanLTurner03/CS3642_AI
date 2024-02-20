@@ -1,6 +1,5 @@
 package Assignments.A2_Genetic_Algorithm.models;
 
-import java.util.Comparator;
 import java.util.Random;
 
 /**
@@ -52,8 +51,8 @@ public class BinaryVector implements Comparable<BinaryVector> {
     @Override
     public String toString() {
         String result = "[";
-        for (int i = 0; i < genes.length; i++) {
-            result += genes[i] + ",";
+        for (int gene : genes) {
+            result += gene + ",";
         }
         result = result.substring(0, result.length()-1) + "]";
         return result;
