@@ -3,7 +3,7 @@ package Assignments.A2_Genetic_Algorithm;
 import Assignments.A2_Genetic_Algorithm.models.BinaryVector;
 import Assignments.A2_Genetic_Algorithm.models.PopulationManager;
 
-import java.util.Random;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -47,7 +47,7 @@ public class Driver {
      * @param option the Option being executed.
      */
     public void executeOption(int option) {
-        if (option == 0) {
+        if (option == 1) {
             System.out.println("Please enter a population size.");
             System.out.print("Size: ");
             int n_pop = this.getIntegerInput();
@@ -56,7 +56,38 @@ public class Driver {
                 System.out.print("Size: ");
                 n_pop = this.getIntegerInput();
             }
+            PopulationManager.n_pop = n_pop;
+        } else if (option == 2) {
+            if (PopulationManager.n_pop == 0) {
+                System.out.println("Please enter a population size before mutation frequency.");
+                System.out.println();
+                return;
+            }
+
+            System.out.println("Please enter a mutation frequency. (Ex. 17% = .17)");
+            System.out.print("Frequency: ");
+            double p_m = this.getDoubleInput();
+            while (p_m <= 0 || p_m >= 1) {
+                System.out.println("Please enter a valid mutation frequency. (Ex. 17% = .17) (0 <= freq <= 1)");
+                System.out.print("Frequency: ");
+                p_m = this.getDoubleInput();
+            }
+            PopulationManager.p_m = p_m;
+        } else if (option == 3) {
+            if (PopulationManager.n_pop == 0 || PopulationManager.p_m == 0.0) {
+                System.out.println("You must enter a population size and mutation frequency to run the GA.");
+                System.out.println();
+                return;
+            }
+
+            long start = System.currentTimeMillis();
+            BinaryVector[] population = PopulationManager.generate_population(PopulationManager.n_pop);
+            int result = PopulationManager.evolution(population);
+            long end = System.currentTimeMillis();
+            System.out.println("The Genetic Algorithm (GA) proceeded through " + result + " generations.");
+            System.out.println("The algorithm took " + (end-start) + " ms to find the BinaryVector with fitness 0.");
         }
+        System.out.println();
     }
 
     /**
@@ -66,7 +97,7 @@ public class Driver {
      * @precondition none
      * @postcondition none
      *
-     * @return the integer input, if invalid -1.
+     * @return the integer input, if invalid -1
      */
     protected int getIntegerInput() {
         Scanner sc = new Scanner(System.in);
@@ -75,6 +106,24 @@ public class Driver {
             return Integer.parseInt(textInput);
         } catch (Exception e) {
             return -1;
+        }
+    }
+    /**
+     * Gets user input to a number. A prompt must be provided prior to running this method.
+     * If the input was not a double/(unable to be autoboxed), returns -1.0.
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @return the double input, if invalid -1.0
+     */
+    protected double getDoubleInput() {
+        Scanner sc = new Scanner(System.in);
+        try {
+            String textInput = sc.nextLine();
+            return Double.parseDouble(textInput);
+        } catch (Exception e) {
+            return -1.0;
         }
     }
 

@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class PopulationManager {
 
-    public static double p_m;
-    public static int n_pop;
+    public static double p_m = 0.0;
+    public static int n_pop = 0;
 
     /**
      * Performs the Genetic Algorithm (GA) using a pre-provided population and a mutation percentage
@@ -124,11 +124,12 @@ public class PopulationManager {
         if (population == null) {
             throw new IllegalArgumentException("The population must be valid and even.");
         }
+
         List<BinaryVector> unorderedPop = new ArrayList<>(List.of(population));
         Collections.sort(unorderedPop);
 
         BinaryVector[] selected;
-        if ((population.length/2) % 2 == 1) {
+        if ((population.length) % 2 == 1) {
             selected = new BinaryVector[(population.length + 1) / 2];
         } else {
             selected = new BinaryVector[population.length / 2];
