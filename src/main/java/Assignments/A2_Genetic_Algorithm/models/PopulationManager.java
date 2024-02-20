@@ -40,7 +40,7 @@ public class PopulationManager {
             /* Performs an Elite Selection to choose the ancestors for the next generation */
             generation = selection(generation);
             List<BinaryVector> offspring = new ArrayList<>();
-            for (int parents = 0; parents < generation.length-2; parents+=2) {
+            for (int parents = 0; parents < generation.length-1; parents+=2) {
                 BinaryVector[] directDescendants = crossover(generation[parents], generation[parents+1]);
                 offspring.addAll(List.of(directDescendants));
             }
