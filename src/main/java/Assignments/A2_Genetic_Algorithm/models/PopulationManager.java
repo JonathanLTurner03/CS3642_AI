@@ -1,5 +1,8 @@
 package Assignments.A2_Genetic_Algorithm.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,27 +14,36 @@ import java.util.Random;
  */
 public class PopulationManager {
 
-    private BinaryVector[] population;
-
     /**
      * Create a new population of n_pop individuals with random genes.
      *
      * @precondition n_pop > 0
-     * @postcondition population is initialized with n_pop individuals.
+     * @postcondition none
      *
      * @param n_pop the number of individuals in the population.
+     * @return a population is returned with n_pop individuals
      */
-    public PopulationManager(int n_pop) {
+    public static BinaryVector[] generate_population(int n_pop) {
         /* Check if the population size is positive */
-        if (n_pop < 1) {
-            throw new IllegalArgumentException("Population size must be positive.");
+        if (n_pop < 1 || n_pop % 2 == 1) {
+            throw new IllegalArgumentException("Population size must be positive and even.");
         }
 
         /* Initialize and creates the population of n_pop individuals with random genes */
-        this.population = new BinaryVector[n_pop];
+        BinaryVector[] population = new BinaryVector[n_pop];
         for (int i = 0; i < n_pop; i++) {
-            this.population[i] = new BinaryVector();
+            population[i] = new BinaryVector();
         }
+        return population;
+    }
+
+    public static BinaryVector[] selection(BinaryVector[] population) {
+        List<BinaryVector> unorderedPop = new ArrayList<>(List.of(population));
+//        Collections.sort(unorderedPop);
+
+        BinaryVector[] selected = new BinaryVector[population.length/2];
+
+        return new BinaryVector[1];
     }
 
     /**
@@ -44,7 +56,7 @@ public class PopulationManager {
      * @param individual the BinaryVector to calculate the fitness of
      * @return the fitness of the individual
      */
-    private int fitness(BinaryVector individual) {
+    public static int fitness(BinaryVector individual) {
         /* Calculate the decimal value of the binary genes */
         int decimal = 0;
         for (int i = individual.genes.length-1; i >= 0; i--) {
@@ -68,7 +80,7 @@ public class PopulationManager {
      * @param p_m the probability of mutation
      * @return the mutated BinaryVector
      */
-    private BinaryVector mutation(BinaryVector individual, double p_m) {
+    public static BinaryVector mutation(BinaryVector individual, double p_m) {
         /* Does the pre- and post-condition checks */
         if (individual == null) {
             throw new IllegalArgumentException("Individual cannot be null.");
@@ -106,7 +118,7 @@ public class PopulationManager {
      *
      * @return an array of two new individuals that are the children of the parents.
      */
-    private BinaryVector[] crossover(BinaryVector firstParent, BinaryVector secondParent) {
+    public static BinaryVector[] crossover(BinaryVector firstParent, BinaryVector secondParent) {
         /* Check if the parents are not null */
         if (firstParent == null || secondParent == null) {
             throw new IllegalArgumentException("Parents cannot be null.");
