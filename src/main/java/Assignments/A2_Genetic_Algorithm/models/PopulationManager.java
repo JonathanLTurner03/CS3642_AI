@@ -1,5 +1,12 @@
 package Assignments.A2_Genetic_Algorithm.models;
 
+/**
+ * A class to manage the population of individuals and performs
+ * Genetic Algorithm operations and functions.
+ *
+ * @author Jonathan Turner
+ * @version Spring 2024
+ */
 public class PopulationManager {
 
     private Individual[] population;
@@ -38,12 +45,18 @@ public class PopulationManager {
      * @return the fitness of the individual
      */
     private int fitness(Individual individual) {
+        // Holds the decimal value of the binary genes.
         int decimal = 0;
+
+        // Calculate the decimal value of the binary genes
         for (int i = individual.genes.length-1; i >= 0; i--) {
             if (individual.genes[i] == 1) {
+                // Add the value of the gene to the decimal value based on its position
                 decimal += (int) Math.pow(2, individual.genes.length-1-i);
             }
         }
+
+        // Return the fitness of the individual, which is f(x) = x^2.
         return (int) Math.pow(decimal, 2);
     }
 }
