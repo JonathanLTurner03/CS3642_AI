@@ -37,13 +37,28 @@ public class PopulationManager {
         return population;
     }
 
+    /**
+     * Returns the list of elite selected individuals from the population.
+     *
+     * @precondition population != null && population.length % 2 == 0
+     * @postcondition none
+     *
+     * @param population the current population.
+     * @return the elite selection population.
+     */
     public static BinaryVector[] selection(BinaryVector[] population) {
+        if (population == null || population.length % 2 != 0) {
+            throw new IllegalArgumentException("The population must be valid and even.");
+        }
+
         List<BinaryVector> unorderedPop = new ArrayList<>(List.of(population));
-//        Collections.sort(unorderedPop);
+        Collections.sort(unorderedPop);
 
         BinaryVector[] selected = new BinaryVector[population.length/2];
-
-        return new BinaryVector[1];
+        for (int i = 0; i < selected.length; i++) {
+            selected[i] = unorderedPop.get(i);
+        }
+        return selected;
     }
 
     /**
@@ -57,6 +72,10 @@ public class PopulationManager {
      * @return the fitness of the individual
      */
     public static int fitness(BinaryVector individual) {
+        if (individual == null) {
+            throw new IllegalArgumentException("The individual cannot be null.");
+        }
+
         /* Calculate the decimal value of the binary genes */
         int decimal = 0;
         for (int i = individual.genes.length-1; i >= 0; i--) {

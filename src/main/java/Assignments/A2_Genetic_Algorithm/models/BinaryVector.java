@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Jonathan Turner
  * @version Spring 2024
  */
-public class BinaryVector implements Comparator<BinaryVector> {
+public class BinaryVector implements Comparable<BinaryVector> {
 
     public int[] genes;
 
@@ -62,18 +62,16 @@ public class BinaryVector implements Comparator<BinaryVector> {
     /**
      * Compares two BinaryVectors against each other.
      *
-     * @precondition o1 != null && o2 != null
+     * @precondition o1 != null
      * @postcondition none
      *
-     * @param o1 the first object to be compared.
-     * @param o2 the second object to be compared.
-     *
-     * @return 1 if the first is bigger, -1 if the second is bigger, if equal 0.
+     * @param o the object this is to be compared to.
+     * @return 1 if this is bigger, -1 if the other is bigger, if equal 0.
      */
     @Override
-    public int compare(BinaryVector o1, BinaryVector o2) {
-        int firstFitness = PopulationManager.fitness(o1);
-        int secondFitness = PopulationManager.fitness(o2);
+    public int compareTo(BinaryVector o) {
+        int firstFitness = PopulationManager.fitness(this);
+        int secondFitness = PopulationManager.fitness((BinaryVector) o);
 
         if (firstFitness > secondFitness) {
             return 1;
