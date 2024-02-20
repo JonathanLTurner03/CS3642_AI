@@ -1,7 +1,7 @@
-package Assignments.A1.models.helper;
+package Assignments.A1_8Puzzles.models.helper;
 
-import Assignments.A1.models.Board;
-import Assignments.A1.models.BoardNode;
+import Assignments.A1_8Puzzles.models.Board;
+import Assignments.A1_8Puzzles.models.BoardNode;
 
 /**
  * Interface used for implementing a solver when there are multiple different variations and classes.

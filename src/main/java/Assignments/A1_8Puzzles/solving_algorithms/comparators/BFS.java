@@ -1,6 +1,6 @@
-package Assignments.A1.solving_algorithms.comparators;
+package Assignments.A1_8Puzzles.solving_algorithms.comparators;
 
-import Assignments.A1.models.BoardNode;
+import Assignments.A1_8Puzzles.models.BoardNode;
 import java.util.Comparator;
 
 /**

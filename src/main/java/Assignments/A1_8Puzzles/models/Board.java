@@ -1,7 +1,7 @@
-package Assignments.A1.models;
+package Assignments.A1_8Puzzles.models;
 
-import Assignments.A1.models.helper.Move;
-import Assignments.A1.models.helper.Pair;
+import Assignments.A1_8Puzzles.models.helper.Move;
+import Assignments.A1_8Puzzles.models.helper.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;

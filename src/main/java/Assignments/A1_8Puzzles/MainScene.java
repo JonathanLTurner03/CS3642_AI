@@ -1,4 +1,4 @@
-package Assignments.A1;
+package Assignments.A1_8Puzzles;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

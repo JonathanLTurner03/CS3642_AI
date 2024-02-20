@@ -1,9 +1,9 @@
-package Assignments.A1.solving_algorithms;
+package Assignments.A1_8Puzzles.solving_algorithms;
 
-import Assignments.A1.models.*;
-import Assignments.A1.models.helper.Move;
-import Assignments.A1.models.helper.Solver;
-import Assignments.A1.resources.Parameters;
+import Assignments.A1_8Puzzles.models.*;
+import Assignments.A1_8Puzzles.models.helper.Move;
+import Assignments.A1_8Puzzles.models.helper.Solver;
+import Assignments.A1_8Puzzles.resources.Parameters;
 import java.util.*;
 
 /**

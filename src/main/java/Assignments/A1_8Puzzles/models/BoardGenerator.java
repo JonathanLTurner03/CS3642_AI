@@ -1,6 +1,6 @@
-package Assignments.A1.models;
+package Assignments.A1_8Puzzles.models;
 
-import Assignments.A1.models.helper.Move;
+import Assignments.A1_8Puzzles.models.helper.Move;
 
 import java.util.*;
 

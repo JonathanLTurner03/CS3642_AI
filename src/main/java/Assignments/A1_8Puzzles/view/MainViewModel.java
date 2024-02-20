@@ -1,14 +1,14 @@
-package Assignments.A1.view;
+package Assignments.A1_8Puzzles.view;
 
-import Assignments.A1.models.Board;
-import Assignments.A1.models.BoardGenerator;
-import Assignments.A1.models.BoardNode;
-import Assignments.A1.models.helper.Solver;
-import Assignments.A1.solving_algorithms.PriorityTraversal;
-import Assignments.A1.solving_algorithms.comparators.AStar;
-import Assignments.A1.solving_algorithms.comparators.BFS;
-import Assignments.A1.solving_algorithms.DFS;
-import Assignments.A1.solving_algorithms.comparators.UCS;
+import Assignments.A1_8Puzzles.models.Board;
+import Assignments.A1_8Puzzles.models.BoardGenerator;
+import Assignments.A1_8Puzzles.models.BoardNode;
+import Assignments.A1_8Puzzles.models.helper.Solver;
+import Assignments.A1_8Puzzles.solving_algorithms.PriorityTraversal;
+import Assignments.A1_8Puzzles.solving_algorithms.comparators.AStar;
+import Assignments.A1_8Puzzles.solving_algorithms.comparators.BFS;
+import Assignments.A1_8Puzzles.solving_algorithms.DFS;
+import Assignments.A1_8Puzzles.solving_algorithms.comparators.UCS;
 import javafx.beans.property.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
