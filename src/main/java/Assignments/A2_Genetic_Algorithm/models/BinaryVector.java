@@ -2,7 +2,13 @@ package Assignments.A2_Genetic_Algorithm.models;
 
 import java.util.Random;
 
-public class Individual {
+/**
+ * A class used to represent a binary vector that contains 6 integer values for binary values.
+ *
+ * @author Jonathan Turner
+ * @version Spring 2024
+ */
+public class BinaryVector {
 
     public int[] genes;
 
@@ -12,7 +18,7 @@ public class Individual {
      * @precondition none
      * @postcondition a new Individual object is created with random genes.
      */
-    public Individual() {
+    public BinaryVector() {
         this.genes = new int[6];
         Random generator = new Random();
         for (int i = 0; i < 6; i++) {
@@ -28,10 +34,27 @@ public class Individual {
      *
      * @param genes an array of 6 int values.
      */
-    public Individual(int[] genes) {
+    public BinaryVector(int[] genes) {
         if (genes.length != 6) {
             throw new IllegalArgumentException("Genes cannot be any length other than 6.");
         }
         this.genes = genes;
+    }
+
+    /**
+     * Returns the BinaryVector in string representation of the binary values of the genes.
+     *
+     * @precondition none
+     * @postcondition none
+     * @return the string representation of the BinaryVector.
+     */
+    @Override
+    public String toString() {
+        String result = "[";
+        for (int i = 0; i < genes.length; i++) {
+            result += genes[i] + ",";
+        }
+        result = result.substring(0, result.length()-1) + "]";
+        return result;
     }
 }

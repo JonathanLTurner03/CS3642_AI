@@ -11,8 +11,7 @@ import java.util.Random;
  */
 public class PopulationManager {
 
-    // The population of individuals
-    private Individual[] population;
+    private BinaryVector[] population;
 
     /**
      * Create a new population of n_pop individuals with random genes.
@@ -29,23 +28,23 @@ public class PopulationManager {
         }
 
         /* Initialize and creates the population of n_pop individuals with random genes */
-        this.population = new Individual[n_pop];
+        this.population = new BinaryVector[n_pop];
         for (int i = 0; i < n_pop; i++) {
-            this.population[i] = new Individual();
+            this.population[i] = new BinaryVector();
         }
     }
 
     /**
-     * Calculate the fitness of an individual based on the genes' value in binary form
+     * Calculate the fitness of an BinaryVector based on the genes' value in binary form
      * and powers it by 2.
      *
      * @precondition individual != null
      * @postcondition none
      *
-     * @param individual the individual to calculate the fitness of
+     * @param individual the BinaryVector to calculate the fitness of
      * @return the fitness of the individual
      */
-    private int fitness(Individual individual) {
+    private int fitness(BinaryVector individual) {
         /* Calculate the decimal value of the binary genes */
         int decimal = 0;
         for (int i = individual.genes.length-1; i >= 0; i--) {
@@ -60,6 +59,43 @@ public class PopulationManager {
     }
 
     /**
+     * Mutates the genes of a BinaryVector with a probability p_m.
+     *
+     * @precondition individual != null && p_m >= 0 && p_m <= 1
+     * @postcondition none
+     *
+     * @param individual the BinaryVector to mutate
+     * @param p_m the probability of mutation
+     * @return the mutated BinaryVector
+     */
+    private BinaryVector mutation(BinaryVector individual, double p_m) {
+        /* Does the pre- and post-condition checks */
+        if (individual == null) {
+            throw new IllegalArgumentException("Individual cannot be null.");
+        }
+        if (p_m < 0 || p_m > 1) {
+            throw new IllegalArgumentException("Mutation probability must be between 0 and 1.");
+        }
+
+        /* Creates the mutated binaryvector as a copy of the original */
+        Random generator = new Random();
+        BinaryVector mutated = new BinaryVector(individual.genes);
+
+        /* Mutate the genes of the individual with a probability p_m by generating a random double between 0 and 1. */
+        for (int i = 0; i < individual.genes.length; i++) {
+            if (generator.nextDouble(0, 1) < p_m) {
+                /* flips the gene from 0 to 1 or vise versa */
+                if (mutated.genes[i] == 0) {
+                    mutated.genes[i] = 1;
+                } else {
+                    mutated.genes[i] = 0;
+                }
+            }
+        }
+        return mutated;
+    }
+
+    /**
      * Breeds the two parent individuals to two new child individuals.
      *
      * @precondition firstParent != null && secondParent != null
@@ -70,7 +106,7 @@ public class PopulationManager {
      *
      * @return an array of two new individuals that are the children of the parents.
      */
-    private Individual[] crossover(Individual firstParent, Individual secondParent) {
+    private BinaryVector[] crossover(BinaryVector firstParent, BinaryVector secondParent) {
         /* Check if the parents are not null */
         if (firstParent == null || secondParent == null) {
             throw new IllegalArgumentException("Parents cannot be null.");
@@ -96,9 +132,9 @@ public class PopulationManager {
             secondChild[i] = firstParent.genes[i];
         }
 
-        return new Individual[] {
-                new Individual(firstChild),
-                new Individual(secondChild)
+        return new BinaryVector[] {
+                new BinaryVector(firstChild),
+                new BinaryVector(secondChild)
         };
     }
 }
