@@ -14,6 +14,30 @@ import java.util.Random;
  */
 public class PopulationManager {
 
+    public static void evolution(BinaryVector[] population) {
+
+
+
+    }
+
+    /**
+     * Checks if there is an individual in the population that has a fitness of 0 (wanted).
+     *
+     * @precondition none
+     * @postcondition none
+     *
+     * @param population the population being checked
+     * @return if there is an individual with fitness 0.
+     */
+    public static boolean check(BinaryVector[] population) {
+        for (BinaryVector binaryVector : population) {
+            if (binaryVector != null && fitness(binaryVector) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Create a new population of n_pop individuals with random genes.
      *
