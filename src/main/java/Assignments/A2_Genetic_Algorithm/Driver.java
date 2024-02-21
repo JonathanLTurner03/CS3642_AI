@@ -22,7 +22,6 @@ public class Driver {
         program.start();
     }
 
-
     /**
      * Used as the main sentential loop and loops until the exit option is selected.
      *
@@ -45,7 +44,7 @@ public class Driver {
      *
      * @param option the Option being executed.
      */
-    public void executeOption(int option) {
+    private void executeOption(int option) {
         /* If the user selects the option "Set Population Size" */
         if (option == 1) {
             /* Gets the initial user input for the size */
@@ -132,7 +131,7 @@ public class Driver {
      *
      * @return the integer input, if invalid -1
      */
-    protected int getIntegerInput() {
+    private int getIntegerInput() {
         Scanner sc = new Scanner(System.in);
         try {
             String textInput = sc.nextLine();
@@ -141,6 +140,7 @@ public class Driver {
             return -1;
         }
     }
+
     /**
      * Gets user input to a number. A prompt must be provided prior to running this method.
      * If the input was not a double/(unable to be autoboxed), returns -1.0.
@@ -150,7 +150,7 @@ public class Driver {
      *
      * @return the double input, if invalid -1.0
      */
-    protected double getDoubleInput() {
+    private double getDoubleInput() {
         Scanner sc = new Scanner(System.in);
         try {
             String textInput = sc.nextLine();

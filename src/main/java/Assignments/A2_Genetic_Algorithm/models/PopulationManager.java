@@ -3,8 +3,7 @@ package Assignments.A2_Genetic_Algorithm.models;
 import java.util.*;
 
 /**
- * A class to manage the population of individuals and performs
- * Genetic Algorithm operations and functions.
+ * A class to manage the population of individuals and performs Genetic Algorithm operations and functions.
  *
  * @author Jonathan Turner
  * @version Spring 2024
@@ -114,7 +113,7 @@ public class PopulationManager {
     /**
      * Returns the list of elite selected individuals from the population.
      *
-     * @precondition population != null && population.length % 2 == 0
+     * @precondition population != null
      * @postcondition none
      *
      * @param population the current population.
@@ -125,9 +124,11 @@ public class PopulationManager {
             throw new IllegalArgumentException("The population must be valid and even.");
         }
 
+        /* Turns the order of the population to a list and sorts it based on the default order in BinaryVector */
         List<BinaryVector> unorderedPop = new ArrayList<>(List.of(population));
         Collections.sort(unorderedPop);
 
+        /* Sets the length of the array based on if its odd or even. */
         BinaryVector[] selected;
         if ((population.length) % 2 == 1) {
             selected = new BinaryVector[(population.length + 1) / 2];
@@ -135,6 +136,7 @@ public class PopulationManager {
             selected = new BinaryVector[population.length / 2];
         }
 
+        /* Selects the elite elements from the start of the ordered list and places them into the selected array */
         for (int i = 0; i < selected.length; i++) {
             selected[i] = unorderedPop.get(i);
         }
@@ -148,7 +150,7 @@ public class PopulationManager {
      * @precondition individual != null
      * @postcondition none
      *
-     * @param individual the BinaryVector to calculate the fitness of
+     * @param individual the BinaryVector to calculate the fitness
      * @return the fitness of the individual
      */
     public static int fitness(BinaryVector individual) {
@@ -161,7 +163,7 @@ public class PopulationManager {
         for (int i = individual.genes.length-1; i >= 0; i--) {
             if (individual.genes[i] == 1) {
                 /* Add the value of the gene to the decimal value based on its position */
-                decimal += (int) Math.pow(2, individual.genes.length-1-i);
+                decimal += (int) Math.pow(2, (individual.genes.length-1)-i);
             }
         }
 
@@ -207,7 +209,7 @@ public class PopulationManager {
     }
 
     /**
-     * Breeds the two parent individuals to two new child individuals.
+     * Breeds the two parent individuals to two new child vectors.
      *
      * @precondition firstParent != null && secondParent != null
      * @postcondition none
@@ -215,10 +217,10 @@ public class PopulationManager {
      * @param firstParent the first parent individual
      * @param secondParent the second parent individual
      *
-     * @return an array of two new individuals that are the children of the parents.
+     * @return an array of two new BinaryVectors that are the children of the parents.
      */
     public static BinaryVector[] crossover(BinaryVector firstParent, BinaryVector secondParent) {
-        /* Check if the parents are not null */
+        /* Check if the parents are null */
         if (firstParent == null || secondParent == null) {
             throw new IllegalArgumentException("Parents cannot be null.");
         }
@@ -227,7 +229,7 @@ public class PopulationManager {
         int[] firstChild = new int[6];
         int[] secondChild = new int[6];
 
-        /* Randomly select a crossover point */
+        /* Randomly select a crossover index */
         Random generator = new Random();
         int crossover_point = generator.nextInt(0, 6);
 
@@ -243,6 +245,7 @@ public class PopulationManager {
             secondChild[i] = firstParent.genes[i];
         }
 
+        /* Returns the two new values as BinaryVectors */
         return new BinaryVector[] {
                 new BinaryVector(firstChild),
                 new BinaryVector(secondChild)

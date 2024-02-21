@@ -3,7 +3,7 @@ package Assignments.A2_Genetic_Algorithm.models;
 import java.util.Random;
 
 /**
- * A class used to represent a binary vector that contains 6 integer values for binary values.
+ * This class is used to represent a binary vector that contains 6 integer values for binary values.
  *
  * @author Jonathan Turner
  * @version Spring 2024
@@ -13,10 +13,10 @@ public class BinaryVector implements Comparable<BinaryVector> {
     public int[] genes;
 
     /**
-     * Default constructor for Individual. Generates a random set of genes.
+     * Default constructor for BinaryVector. Generates a random set of genes.
      *
      * @precondition none
-     * @postcondition a new Individual object is created with random genes.
+     * @postcondition a new BinaryVector object is created with random genes.
      */
     public BinaryVector() {
         this.genes = new int[6];
